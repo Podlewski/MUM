@@ -1,5 +1,6 @@
 from os import system, name
 import pandas
+from bayes import Bayes
 
 
 def clear():
@@ -47,4 +48,8 @@ while 1:
 
 clear()
 data = load_dataset(setup["dataset"])
-print(data)
+classifier = {'1': Bayes(data),
+              '2': Bayes(data),
+              '3': Bayes(data),
+              '4': Bayes(data),
+              '5': Bayes(data)}[setup["dataset"]]
