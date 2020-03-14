@@ -20,7 +20,6 @@ def path(n):
 
 def load_dataset(n):
     f = open(path(n))
-    f.readline()
     return pandas.read_csv(f)
 
 
