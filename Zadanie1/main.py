@@ -1,0 +1,50 @@
+from os import system, name
+import pandas
+
+
+def clear():
+    if name == 'nt':
+        _ = system("cls")
+    else:
+        _ = system("clear")
+
+
+def path(n):
+    return {
+        '1': "./datasets/falldetection.csv",
+        '2': "./datasets/weatherAUS.csv",
+        '3': "./datasets/suicide-rates-overview-1985-to-2016.csv"
+    }[n]
+
+
+def load_dataset(n):
+    f = open(path(n))
+    f.readline()
+    return pandas.read_csv(f)
+
+
+setup = {}
+
+while 1:
+    clear()
+    setup["dataset"] = input("Choose data set:\n"
+                             "[1] Fall detection data from China\n"
+                             "[2] Rain in Australia\n"
+                             "[3] Suicide rates overview 1985-2016\t\t")
+    if '1' <= setup["dataset"] <= '3':
+        break
+
+while 1:
+    clear()
+    setup["method"] = input("Choose method:\n"
+                            "[1] Decision trees algorithm\n"
+                            "[2] Naive Bayes classifier\n"
+                            "[3] Support-vector machine\n"
+                            "[4] k-nearest neighbors algorithm\n"
+                            "[5] Artificial neural network algorithm\t\t")
+    if '1' <= setup["method"] <= '5':
+        break
+
+clear()
+data = load_dataset(setup["dataset"])
+print(data)
