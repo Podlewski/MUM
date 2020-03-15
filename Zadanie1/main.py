@@ -24,6 +24,20 @@ def load_dataset(n):
     return pandas.read_csv(file)
 
 
+def print_data():
+    dataset_name = {1: "Fall detection data from China",
+                    2: "Rain in Australia",
+                    3: "Suicide rates overview 1985-2016"}[setup["dataset"]]
+    print(f"Data set:\t{dataset_name}")
+    method_name = {1: "Decision trees algorithm",
+                   2: "Naive Bayes classifier",
+                   3: "Support-vector machine",
+                   4: "k-nearest neighbors algorithm",
+                   5: "Artificial neural network algorithm"}[setup["method"]]
+    print(f"Classification:\t{method_name}")
+    print(f"Training data:\t{setup['training_precent']}%\n")
+
+
 setup = {}
 
 while True:
@@ -31,9 +45,12 @@ while True:
     setup["dataset"] = int(input("Choose data set:\n"
                                  "[1] Fall detection data from China\n"
                                  "[2] Rain in Australia\n"
-                                 "[3] Suicide rates overview 1985-2016\t\t"))
+                                 "[3] Suicide rates overview 1985-2016\n\n"
+                                 "Choice: "))
     if 1 <= setup["dataset"] <= 3:
         break
+
+
 
 while True:
     clear()
@@ -42,15 +59,17 @@ while True:
                                 "[2] Naive Bayes classifier\n"
                                 "[3] Support-vector machine\n"
                                 "[4] k-nearest neighbors algorithm\n"
-                                "[5] Artificial neural network algorithm\t\t"))
+                                "[5] Artificial neural network algorithm\n\n"
+                                 "Choice: "))
     if 1 <= setup["method"] <= 5:
         break
 
 while True:
     clear()
-    setup["training_fraction"] = float(input("Fraction of dataset used for training:\t\t"))
-    if 0 < setup["training_fraction"] < 1:
+    setup["training_precent"] = float(input("Precent of dataset used for training: "))
+    if 0 < setup["training_precent"] < 100:
         break
+setup["training_fraction"] = setup["training_precent"] / 100
 
 clear()
 data = load_dataset(setup["dataset"])
@@ -61,4 +80,5 @@ classifier = {1: Bayes(data, setup["training_fraction"]),
               5: Bayes(data, setup["training_fraction"])}[setup["method"]]
 classifier.train()
 classifier.test()
+print_data()
 print(classifier.get_metrics())
