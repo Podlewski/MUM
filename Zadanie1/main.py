@@ -1,4 +1,5 @@
 from os import system, name
+import numpy
 import pandas
 from bayes import Bayes
 from svm import SVM
@@ -24,6 +25,13 @@ def load_dataset(n):
     return pandas.read_csv(file)
 
 
+def factorize(col):
+    if col.dtype in [numpy.float64, numpy.float32, numpy.int32, numpy.int64]:
+        return col
+    else:
+        return pandas.factorize(col)[0]
+
+
 def print_data():
     dataset_name = {1: "Fall detection data from China",
                     2: "Rain in Australia",
@@ -35,7 +43,7 @@ def print_data():
                    4: "k-nearest neighbors algorithm",
                    5: "Artificial neural network algorithm"}[setup["method"]]
     print(f"Classification:\t{method_name}")
-    print(f"Training data:\t{setup['training_precent']}%\n")
+    print(f"Training data:\t{setup['training_percent']}%\n")
 
 
 setup = {}
@@ -50,8 +58,6 @@ while True:
     if 1 <= setup["dataset"] <= 3:
         break
 
-
-
 while True:
     clear()
     setup["method"] = int(input("Choose method:\n"
@@ -60,19 +66,19 @@ while True:
                                 "[3] Support-vector machine\n"
                                 "[4] k-nearest neighbors algorithm\n"
                                 "[5] Artificial neural network algorithm\n\n"
-                                 "Choice: "))
+                                "Choice: "))
     if 1 <= setup["method"] <= 5:
         break
 
 while True:
     clear()
-    setup["training_precent"] = float(input("Precent of dataset used for training: "))
-    if 0 < setup["training_precent"] < 100:
+    setup["training_percent"] = float(input("Percent of dataset used for training: "))
+    if 0 < setup["training_percent"] < 100:
         break
-setup["training_fraction"] = setup["training_precent"] / 100
+setup["training_fraction"] = setup["training_percent"] / 100
 
 clear()
-data = load_dataset(setup["dataset"])
+data = load_dataset(setup["dataset"]).dropna().apply(factorize)
 classifier = {1: Bayes(data, setup["training_fraction"]),
               2: Bayes(data, setup["training_fraction"]),
               3: SVM(data, setup["training_fraction"]),
