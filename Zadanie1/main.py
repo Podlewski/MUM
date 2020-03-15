@@ -1,6 +1,5 @@
 from os import system, name
 import pandas
-import numpy
 from bayes import Bayes
 
 
@@ -20,8 +19,8 @@ def path(n):
 
 
 def load_dataset(n):
-    f = open(path(n))
-    return pandas.read_csv(f)
+    file = open(path(n))
+    return pandas.read_csv(file)
 
 
 setup = {}
@@ -46,12 +45,19 @@ while True:
     if 1 <= setup["method"] <= 5:
         break
 
+while True:
+    clear()
+    setup["training_fraction"] = float(input("Fraction of dataset used for training:\t\t"))
+    if 0 < setup["training_fraction"] < 1:
+        break
+
 clear()
 data = load_dataset(setup["dataset"])
-classifier = {1: Bayes(data),
-              2: Bayes(data),
-              3: Bayes(data),
-              4: Bayes(data),
-              5: Bayes(data)}[setup["dataset"]]
+classifier = {1: Bayes(data, setup["training_fraction"]),
+              2: Bayes(data, setup["training_fraction"]),
+              3: Bayes(data, setup["training_fraction"]),
+              4: Bayes(data, setup["training_fraction"]),
+              5: Bayes(data, setup["training_fraction"])}[setup["method"]]
 classifier.train()
 classifier.test()
+print(classifier.get_metrics())
