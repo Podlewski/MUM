@@ -1,6 +1,7 @@
 from os import system, name
 import pandas
 from bayes import Bayes
+from svm import SVM
 
 
 def clear():
@@ -55,7 +56,7 @@ clear()
 data = load_dataset(setup["dataset"])
 classifier = {1: Bayes(data, setup["training_fraction"]),
               2: Bayes(data, setup["training_fraction"]),
-              3: Bayes(data, setup["training_fraction"]),
+              3: SVM(data, setup["training_fraction"]),
               4: Bayes(data, setup["training_fraction"]),
               5: Bayes(data, setup["training_fraction"])}[setup["method"]]
 classifier.train()
