@@ -11,7 +11,7 @@
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{listings}
-\usepackage{hyperref} 
+\usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
 \usepackage{tikz}
 \frenchspacing
@@ -25,7 +25,6 @@
 \newcommand{\degree}{\ensuremath{^{\circ}}} 
 \fancyfoot[L]{MUM: P. Galewicz, B. Jurczewski, Z. Nowacki, K.Podlewski, P. Wardęcki}
 \fancyfoot[R]{\thepage\ / \pageref{LastPage}}
-
 
 \begin{document}
 
@@ -129,7 +128,15 @@ Opis
 Opis
 
 \subsection{Klasyfikator k-najbliższych sąsiadów}
-Opis
+Algorytm ten należy do grupy algorytmów analizy skupień (wyszukiwanie i wyodrębnianie grup obiektów podobnych do siebie). Algorytm k-średnich polega na przenoszeniu punktów skupień (centroidów) do środków ciężkości podzbiorów punktów. Przebieg algorytmu jest następujący:
+\begin{enumerate}
+    \item{Określamy liczbę skupień (k)}
+    \item{Wybieramy losowo środki skupień (centroidy)}
+    \item{Obliczamy odległości wybranych obiektów od środków skupień za pomocą odległości euklidesowej}
+    \item{Przypisujemy obiekty do skupień}
+    \item{Ustalamy na nowo środki skupień}
+\end{enumerate}
+Kroki od 3 do 5 są wykonywane, aż zostanie spełniony warunek zatrzymania algorytmu. W tym przypadku będzie to przekroczenie narzuconej wcześniej liczby iteracji, lub doprowadzenie skupień do stanu w którym nie będzie dochodziło już do żadnych przesunięć obiektów.
 
 \subsection{Algorytm sztucznych sieci neuronowych}
 Opis
