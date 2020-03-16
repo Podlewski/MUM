@@ -3,6 +3,7 @@ import numpy
 import pandas
 from bayes import Bayes
 from svm import SVM
+from neuralNetwork import NeuralNetwork
 
 
 def clear():
@@ -83,7 +84,7 @@ classifier = {1: Bayes(data, setup["training_fraction"]),
               2: Bayes(data, setup["training_fraction"]),
               3: SVM(data, setup["training_fraction"]),
               4: Bayes(data, setup["training_fraction"]),
-              5: Bayes(data, setup["training_fraction"])}[setup["method"]]
+              5: NeuralNetwork(data, setup["training_fraction"])}[setup["method"]]
 classifier.train()
 classifier.test()
 print_data()
