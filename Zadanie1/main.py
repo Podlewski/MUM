@@ -5,6 +5,7 @@ from bayes import Bayes
 from svm import SVM
 from neuralNetwork import NeuralNetwork
 from kmeans import KMeans
+from decisionTree import DecisionTree
 
 def clear():
     if name == 'nt':
@@ -80,7 +81,7 @@ setup["training_fraction"] = setup["training_percent"] / 100
 
 clear()
 data = load_dataset(setup["dataset"]).dropna().apply(factorize)
-classifier = {1: Bayes(data, setup["training_fraction"]),
+classifier = {1: DecisionTree(data, setup["training_fraction"]),
               2: Bayes(data, setup["training_fraction"]),
               3: SVM(data, setup["training_fraction"]),
               4: KMeans(data, setup["training_fraction"]),
