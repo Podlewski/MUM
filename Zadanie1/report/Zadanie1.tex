@@ -222,10 +222,25 @@ W tabeli \ref{tab:caption} zaprezentowano porównanie dokładności algorytmów 
 \subsection*{50\% zbioru treningowego}
 
 \subsection{Suicide Rates Overview 1985 to 2016} 
-\subsection*{5\% zbioru treningowego}
-\subsection*{10\% zbioru treningowego}
-\subsection*{25\% zbioru treningowego}
-\subsection*{50\% zbioru treningowego}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\% danych treningowych}}} & \multicolumn{5}{c|}{\textbf{Numer algorytmu}}                  \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                                                 & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+10\%                                                                   & 0.211      & 0.172      & 0.109      & 0.227      & 0.36       \\ \hline
+20\%                                                                   & 0.254      & 0.202      & 0.137      & 0.246      & 0.367      \\ \hline
+30\%                                                                   & 0.22       & 0.175      & 0.211      & 0.215      & 0.328      \\ \hline
+40\%                                                                   & 0.231      & 0.183      & 0.183      & 0.22       & 0.403      \\ \hline
+50\%                                                                   & 0.224      & 0.228      & 0.244      & 0.195      & 0.456      \\ \hline
+60\%                                                                   & 0.215      & 0.187      & 0.264      & 0.212      & 0.538      \\ \hline
+70\%                                                                   & 0.221      & 0.262      & 0.254      & 0.208      & 0.331      \\ \hline
+80\%                                                                   & 0.198      & 0.229      & 0.302      & 0.219      & 0.538      \\ \hline
+90\%                                                                   & 0.25       & 0.213      & 0.088      & 0.229      & 0.36       \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Wnioski}
 
