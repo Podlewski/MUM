@@ -1,5 +1,4 @@
 from sklearn import svm
-import pandas
 
 from classifier import Classifier
 

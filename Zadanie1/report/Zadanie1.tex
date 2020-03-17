@@ -11,7 +11,12 @@
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{listings}
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    urlcolor = cyan
+}
 \usepackage{xcolor}
 \usepackage{tikz}
 \frenchspacing
@@ -56,7 +61,7 @@
 \end{tabular} 
 \end{tabular} 
 
-\\~\\~\\
+\vspace{10px}
 
 \begin{tabular}{rl}
 \begin{tabular}{|r|}
@@ -77,7 +82,7 @@
 \end{tabular}
 \end{center}
 
-\\~\\~\\~\\ 
+\vspace{25px}
 
 \begin{tabular}{ll}
 \LARGE{\textbf{Kierunek}}& \LARGE{Informatyka Stosowana} \\
@@ -96,12 +101,13 @@
 
 \setcounter{page}{2}
 \setstretch{1.5}
-
 \tableofcontents
 \newpage
+\setstretch{1.1}
 
 \section{Cel}
-Zadanie polega na analizie procesu klasyfikacji danych za pomocą wybranych metod:
+Zadanie polegało na analizie procesu klasyfikacji danych za pomocą wybranych metod:
+
 \begin{enumerate}
     \item Algorytm drzew decyzyjnych
     \item Naiwny klasyfikator Bayesa
@@ -110,14 +116,26 @@ Zadanie polega na analizie procesu klasyfikacji danych za pomocą wybranych meto
     \item Algorytm sztucznych sieci neuronowych
 \end{enumerate}
 
-Należy zaimplementować każdą metodę, a następnie zweryfikować jej działanie biorąc pod uwagę:
+Należało zaimplementować każdą metodę, a następnie zweryfikować jej działanie biorąc pod uwagę:
+
 \begin{itemize}
-    \item różne możliwe ustawienia parametrów konfiguracyjnych i ich wpływ na wyniki klasyfikacji
+    \item rożne możliwe ustawienia parametrów konfiguracyjnych i ich wpływ na wyniki klasyfikacji
     \item zbiory danych o różnej charakterystyce (przynajmniej 3 różne zbiory)
 \end{itemize}
-Każdą metodę należy przetestować na tych samych zbiorach, a następnie porównać wyniki i wyciągnąć wnioski dotyczące skuteczności poszczególnych metod. Jako kryterium porównawcze wystarczy omówić dokładność klasyfikacji (accuracy), pozostałe kryteria są opcjonalne.
 
-\section{Wprowadzenie}
+Każdą metodę należało przetestować na tych samych zbiorach, a następnie porównać wyniki i wyciągnąć wnioski dotyczące skuteczności poszczególnych metod. Jako kryterium porównawcze wykorzystaliśmy \textcolor{red}{dokładność klasyfikacji (accuracy) oraz ...} .
+
+\section{Opis implementacji}
+Algorytmy zostały zaimplementowane za pomocą języka Python w wersji 3.8.2.
+Wykorzystano w nim biblioteki NumPy, Sklearn i Pandas. Bazowaliśmy na trzech zestawach danych: 
+\begin{itemize}
+    \item{\href{https://www.kaggle.com/pitasr/falldata}{Fall Detection Data from China}}
+    \item{\href{https://www.kaggle.com/jsphyg/weather-dataset-rattle-package}{Rain in Australia}}
+    \item{\href{https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016}{Suicide Rates Overview 1985 to 2016}}
+\end{itemize}
+
+\section{Klasyfikatory}
+
 \subsection{Algorytm drzew decyzyjnych}
 Opis
 
@@ -125,10 +143,11 @@ Opis
 Opis
 
 \subsection{Maszyna wektorów nośnych}
-Opis
+Maszyna wektorów nośnych 
 
 \subsection{Klasyfikator k-najbliższych sąsiadów}
-Algorytm ten należy do grupy algorytmów analizy skupień (wyszukiwanie i wyodrębnianie grup obiektów podobnych do siebie). Algorytm k-średnich polega na przenoszeniu punktów skupień (centroidów) do środków ciężkości podzbiorów punktów. Przebieg algorytmu jest następujący:
+Algorytm ten należy do grupy algorytmów analizy skupień (wyszukiwanie i wyodrębnianie grup obiektów podobnych do siebie). Algorytm k-najbliższych sąsiadów polega na przenoszeniu punktów skupień (centroidów) do środków ciężkości podzbiorów punktów. Przebieg algorytmu jest następujący:
+
 \begin{enumerate}
     \item{Określamy liczbę skupień (k)}
     \item{Wybieramy losowo środki skupień (centroidy)}
@@ -136,19 +155,11 @@ Algorytm ten należy do grupy algorytmów analizy skupień (wyszukiwanie i wyodr
     \item{Przypisujemy obiekty do skupień}
     \item{Ustalamy na nowo środki skupień}
 \end{enumerate}
+
 Kroki od 3 do 5 są wykonywane, aż zostanie spełniony warunek zatrzymania algorytmu. W tym przypadku będzie to przekroczenie narzuconej wcześniej liczby iteracji, lub doprowadzenie skupień do stanu w którym nie będzie dochodziło już do żadnych przesunięć obiektów.
 
 \subsection{Algorytm sztucznych sieci neuronowych}
 Opis
-
-\section{Opis implementacji}
-Algorytmy zostały zaimplementowane za pomocą języka Python w wersji 3.8.2.
-Wykorzystano w nim biblioteki NumPy, Sklearn i Pandas. Bazowaliśmy na trzech zestawach danych: 
-\begin{itemize}
-    \item{Fall Detection Data from China - \url{https://www.kaggle.com/pitasr/falldata}}
-    \item{Rain in Australia - \url{https://www.kaggle.com/jsphyg/weather-dataset-rattle-package}}
-    \item{Suicide Rates Overview 1985 to 2016 - \url{https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016}}
-\end{itemize}
 
 \section{Badania}
 \color{red}
@@ -157,25 +168,24 @@ A. różne możliwe ustawienia parametrów konfiguracyjnych i ich wpływ na wyni
 B. zbiory danych o różnej charakterystyce (przynajmniej 3 różne zbiory)
 \color{black}
 
-\subsection{Algorytm drzew decyzyjnych}
-\subsubsection{Różne ustawienia parametrów konfiguracyjnych}
-\subsubsection{Różne zbiory danych}
+\subsection{Fall Detection Data from China}
+\subsection*{5\% zbioru treningowego}
+\subsection*{10\% zbioru treningowego}
+\subsection*{25\% zbioru treningowego}
+\subsection*{50\% zbioru treningowego}
 
-\subsection{Naiwny klasyfikator Bayesa}
-\subsubsection{Różne ustawienia parametrów konfiguracyjnych}
-\subsubsection{Różne zbiory danych}
+\subsection{Rain in Australia}
+\subsection*{5\% zbioru treningowego}
+\subsection*{10\% zbioru treningowego}
+\subsection*{25\% zbioru treningowego}
+\subsection*{50\% zbioru treningowego}
 
-\subsection{Maszyna wektorów nośnych}
-\subsubsection{Różne ustawienia parametrów konfiguracyjnych}
-\subsubsection{Różne zbiory danych}
+\subsection{Suicide Rates Overview 1985 to 2016} 
+\subsection*{5\% zbioru treningowego}
+\subsection*{10\% zbioru treningowego}
+\subsection*{25\% zbioru treningowego}
+\subsection*{50\% zbioru treningowego}
 
-\subsection{Klasyfikator k-najbliższych sąsiadów}
-\subsubsection{Różne ustawienia parametrów konfiguracyjnych}
-\subsubsection{Różne zbiory danych}
-
-\subsection{Algorytm sztucznych sieci neuronowych}
-\subsubsection{Różne ustawienia parametrów konfiguracyjnych}
-\subsubsection{Różne zbiory danych}
-
+\section{Wnioski}
 
 \end{document}
