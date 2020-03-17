@@ -151,7 +151,19 @@ Zapytania w węzłach są wyrażeniami logicznymi dotyczącymi jednej z cech mod
 Drzewa domyślnie budowane są do momentu zminimalizowania wartości Impurity, przez co struktura drzew może być bardzo złożona. Skutkiem tego może być przeuczenie modelu, co rzutuje na jego dokładność. Aby ograniczyć możliwość wystąpienia tego zjawiska wprowadza się dodatkowy parametr --  \textit{maksymalna głębokość} -- który mówi o tym ile najwięcej rozgałęzień może wystąpić między węzłem głównym a liściem.
 
 \subsection{Naiwny klasyfikator Bayesa}
-Opis
+Naiwny klasyfikator Bayesa dokonuje klasyfikacji na bazie twierdzenia Bayesa:
+$$ P(A \mid B) = \frac{P(B \mid A) \, P(A)}{P(B)} $$
+gdzie:
+\begin{itemize}
+    \item $A$, $B$ -- zdarzenia
+    \item $P(A \mid B)$ -- prawdopodobieństwo zdarzenia $A$, o ile zajdzie $B$
+    \item $P(B \mid A)$ -- prawdopodobieństwo zdarzenia $B$, o ile zajdzie $A$
+    \item $P(A)$ -- prawdopodobieństwo wystąpienia zdarzenia $A$
+    \item $P(B)$ -- suma prawdopodobieństw wszystkich potencjalnych skutków zdarzenia: $P(B)=\sum P(B\mid A)P(B)$
+\end{itemize}
+
+Model naiwnego klasyfikatora Bayesa zakłada, że dana cecha klasy jest niepowiązana z pozostałymi cechami. Każda z cech indywidualnie wskazuje na prawdopodobieństwo przynależności do danej klasy.
+Sprawdza się najlepiej przy dużych zbiorach danych. Jest wykorzystywany m.in. przy filtrowaniu spamu, diagnozie medycznej, czy prognozowaniu pogody.
 
 \subsection{Maszyna wektorów nośnych}
 Maszyna wektorów nośnych jest klasyfikatorem liniowym. Algorytm polega na rozdzieleniu obiektów o różnej przynależności klasowej za pomocą hiperpłaszczyzn, które mają być od siebie możliwe jak najbardziej oddalone - taką odległość nazywa się marginesem klasyfikatora, a hiperpłaszczyzny z największym marginesem wektorami nośnymi. 
