@@ -137,7 +137,18 @@ Wykorzystano w nim biblioteki NumPy, Sklearn i Pandas. Bazowaliśmy na trzech ze
 \section{Klasyfikatory}
 
 \subsection{Algorytm drzew decyzyjnych}
-Opis
+Algorytm polega na stworzeniu modelu do przewidywania wartości na podstawie prostych reguł wywnioskowanych z danych treningowych. Reguły te tworzone są w struktury drzewiaste. Struktury te składają się z:
+
+\begin{itemize}
+    \item węzła głównego -- od niego rozpoczyna się proces decyzyjny
+    \item węzłów decyzyjnych -- zawierające reguły-zapytania
+    \item stanów (liścia) -- końcowych stanów algorytmu, w problemie klasyfikacji są one równoważne z etykietami
+    \item połączeń między węzłami -- reprezentującymi możliwe warianty dla danego
+\end{itemize}
+
+Zapytania w węzłach są wyrażeniami logicznymi dotyczącymi jednej z cech modelu oraz jej wartości. Wartość ta dobrana musi być w taki sposób, żeby jak najlepiej wydzielić klasę obiektów z przychodzących na węźle danych. Można wtedy powiedzieć, że dany węzeł dostarcza najwięcej informacji. Na potrzebę obliczenia tego przyrostu informacji wprowadza się kryterium \textit{Ipurity}, którego sensem jest fakt, czy po podziale w danym węźle dane zostały poprawnie klasyfikowane. Dokładny sposób wyliczania wartości tego kryterium jest zależny od konfiguracji.
+\par
+Drzewa domyślnie budowane są do momentu zminimalizowania wartości Impurity, przez co struktura drzew może być bardzo złożona. Skutkiem tego może być przeuczenie modelu, co rzutuje na jego dokładność. Aby ograniczyć możliwość wystąpienia tego zjawiska wprowadza się dodatkowy parametr --  \textit{maksymalna głębokość} -- który mówi o tym ile najwięcej rozgałęzień może wystąpić między węzłem głównym a liściem.
 
 \subsection{Naiwny klasyfikator Bayesa}
 Opis
