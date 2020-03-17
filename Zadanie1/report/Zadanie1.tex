@@ -19,6 +19,7 @@
 }
 \usepackage{xcolor}
 \usepackage{tikz}
+\usepackage{multirow}
 \frenchspacing
 \pagestyle{fancyplain}
 \fancyhf{}
@@ -61,7 +62,7 @@
 \end{tabular} 
 \end{tabular} 
 
-\vspace{10px}
+        \vspace{10px}
 
 \begin{tabular}{rl}
 \begin{tabular}{|r|}
@@ -193,10 +194,26 @@ B. zbiory danych o różnej charakterystyce (przynajmniej 3 różne zbiory)
 \color{black}
 
 \subsection{Fall Detection Data from China}
-\subsection*{5\% zbioru treningowego}
-\subsection*{10\% zbioru treningowego}
-\subsection*{25\% zbioru treningowego}
-\subsection*{50\% zbioru treningowego}
+W tabeli \ref{tab:caption} zaprezentowano porównanie dokładności algorytmów dla różnego procentowego podziału datasetu na dane treningowe i testowe. Numeracja algorytmów na podstawie punktu \ref{sec:cel} sprawozdania.
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Procent danych treningowych}}} & \multicolumn{5}{c|}{\textbf{Numer algorytmu}}                       \\ \cline{2-6}
+\multicolumn{1}{|c|}{}                                                      & \textbf{1.} & \textbf{2.} & \textbf{3.} & \textbf{4.} & \textbf{5.} \\ \hline
+10\%                                                                        & 0.559       & 0.161       & 0.296       & 0.551       & 0.29        \\ \hline
+20\%                                                                        & 0.618       & 0.159       & 0.306       & 0.598       & 0.392       \\ \hline
+30\%                                                                        & 0.619       & 0.18        & 0.302       & 0.61        & 0.302       \\ \hline
+40\%                                                                        & 0.647       & 0.136       & 0.318       & 0.626       & 0.393       \\ \hline
+50\%                                                                        & 0.657       & 0.135       & 0.299       & 0.644       & 0.387       \\ \hline
+60\%                                                                        & 0.668       & 0.132       & 0.298       & 0.65        & 0.307       \\ \hline
+70\%                                                                        & 0.695       & 0.139       & 0.306       & 0.65        & 0.391       \\ \hline
+80\%                                                                        & 0.687       & 0.155       & 0.319       & 0.661       & 0.332       \\ \hline
+90\%                                                                        & 0.692       & 0.146       & 0.329       & 0.668       & 0.348       \\ \hline
+\end{tabular}
+\caption{Porównanie dokładności algorytmu dla różnego podziału danych}
+\label{tab:caption}
+\end{table}
 
 \subsection{Rain in Australia}
 \subsection*{5\% zbioru treningowego}
