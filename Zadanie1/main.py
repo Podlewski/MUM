@@ -37,10 +37,11 @@ labels = data[data.columns[0 if lr == 'L' else -1]].unique()
 data = data.apply(factorize)
 
 fraction = setup["training_fraction"]
+class_args = arg_parser.get_classifier_arguments()
 
 classifier = {1: DecisionTree(data, lr, labels, fraction),
               2: Bayes(data, lr, labels, fraction),
-              3: SVM(data, lr, labels, fraction),
+              3: SVM(data, lr, labels, fraction, class_args),
               4: KNeighbors(data, lr, labels, fraction),
               5: NeuralNetwork(data, lr, labels, fraction)}[setup["classifier"]]
 classifier.train()

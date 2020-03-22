@@ -39,6 +39,11 @@ class ArgumentParser:
         self.parser.add_argument('-t', metavar='N', dest='training_percent', type=int,
                                  default=0, help='Set percent of training set')
 
+        # classifiers argument
+        self.parser.add_argument('-a', metavar='N', dest='class_args', type=int,
+                                 nargs='+', default=[0,0,0],
+                                 help = 'Argument of chosen classifier')
+
         # parse
         self.args = self.parser.parse_args()
 
@@ -73,3 +78,6 @@ class ArgumentParser:
             clear()
             self.args.training_percent = int(input('Percent of dataset used for training: '))
         return self.args.training_percent / 100
+
+    def get_classifier_arguments(self):
+        return self.args.class_args
