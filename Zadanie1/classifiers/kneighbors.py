@@ -5,6 +5,8 @@ from classifiers.classifier import Classifier
 
 class KNeighbors(Classifier):
 
-    def __init__(self, data, lr, labels, training_fraction, args):
-        super().__init__(data, lr, labels, training_fraction)
+    name = "k-nearest neighbors algorithm"
+
+    def __init__(self, data, lr, labels, training_fraction, arguments):
+        super().__init__(data, lr, labels, training_fraction, arguments)
         self.model = n.KNeighborsClassifier()

@@ -5,6 +5,9 @@ import pandas
 datasets = {1: "./datasets/falldetection.csv",
             2: "./datasets/weatherAUS.csv",
             3: "./datasets/suicide-rates-overview-1985-to-2016.csv"}
+dataset_names = {1: "Fall detection data from China",
+                 2: "Rain in Australia",
+                 3: "Suicide rates overview 1985-2016"}
 dataset_sides = {1: 'L',
                  2: 'R',
                  3: 'R'}

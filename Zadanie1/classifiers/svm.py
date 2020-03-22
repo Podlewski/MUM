@@ -4,22 +4,31 @@ from classifiers.classifier import Classifier
 
 class SVM(Classifier):
 
-    def kernel(self, kernel_number):
-        return {1: "rbf",
-                2: "linear",
-                3: "rbf",
-                4: "sigmoid"}[kernel_number]
+    name = "Support-vector machine"
 
-    def __init__(self, data, lr, labels, training_fraction, args):
-        super().__init__(data, lr, labels, training_fraction)
+    kernel = {1: "rbf", 2: "linear", 3: "poly", 4: "sigmoid"}
+    kernel_names = {1: "RBF (Radial Basis Function)", 2: "Linear",
+                    3: "Polynomial", 4: "Sigmoid"}
 
-        while(0 >= args[0] or args[0] >= 5):
+    def __init__(self, data, lr, labels, training_fraction, arguments):
+        super().__init__(data, lr, labels, training_fraction, arguments)
+
+        while(0 >= arguments[0] or arguments[0] >= 5):
             # clear()
-            args[0] = int(input("Choose kernel:\n"
-                                "[1] RBF\n"
+            arguments[0] = int(input("Choose kernel:\n"
+                                "[1] RBF (Radial Basis Function)\n"
                                 "[2] Linear\n"
                                 "[3] Polynomial\n"
                                 "[3] Sigmoid\n\n"
                                 "Choice: "))
         
-        self.model = svm.SVC(kernel=self.kernel(args[0]))
+        self.model = svm.SVC(kernel=self.kernel[arguments[0]])
+
+    def print_stats(self, dataset_name, basic=True):
+        if basic is True:
+            super().print_basic_stats(dataset_name)
+        print(f"Kernel:\t\t\t{self.kernel_names[self.arguments[0]]}")
+
+        print()
+
+        print(self.get_metrics())

@@ -1,6 +1,6 @@
 import argparse
 
-from utils import clear, datasets
+from utils import clear, datasets, dataset_names
 
 
 class ArgumentParser:
@@ -41,7 +41,7 @@ class ArgumentParser:
 
         # classifiers argument
         self.parser.add_argument('-a', metavar='N', dest='class_args', type=int,
-                                 nargs='+', default=[0,0,0],
+                                 nargs='+', default=[-1,-1,-1],
                                  help = 'Argument of chosen classifier')
 
         # parse
@@ -58,6 +58,9 @@ class ArgumentParser:
                                               '[3] Suicide rates overview 1985-2016\n\n'
                                               'Choice: '))
         return datasets[self.args.dataset]
+
+    def get_dataset_name(self):
+        return dataset_names[self.args.dataset]
 
     def get_classifier(self):
         if self.args.classifier is None:

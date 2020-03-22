@@ -5,6 +5,8 @@ from classifiers.classifier import Classifier
 
 class DecisionTree(Classifier):
 
-    def __init__(self, data, lr, labels, training_fraction, args):
-        super().__init__(data, lr, labels, training_fraction)
+    name = "Decision trees algorithm"
+
+    def __init__(self, data, lr, labels, training_fraction, arguments):
+        super().__init__(data, lr, labels, training_fraction, arguments)
         self.model = tree.DecisionTreeClassifier()

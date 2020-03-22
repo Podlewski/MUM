@@ -1,6 +1,8 @@
 import warnings
 from sklearn import metrics
 
+import utils 
+
 
 class Classifier:
     model = None
@@ -13,12 +15,15 @@ class Classifier:
     test_target_values = None
     prediction = None
     labels = None
+    name = None
+    arguments = None
 
-    def __init__(self, data, lr, labels, training_fraction):
+    def __init__(self, data, lr, labels, training_fraction, arguments):
         self.tt_ratio = training_fraction
         self.data = data
         self.lr = lr
         self.labels = labels
+        self.arguments = arguments
 
     def __lr__(self):
         return {'L': [self.data.columns[0]],
@@ -61,3 +66,16 @@ class Classifier:
             target_names=list(map(str, self.labels)),
             digits=3
         )
+
+    def print_basic_stats(self, dataset_name):
+        utils.clear()
+        if dataset_name is not None:
+            print(f"Data set:\t\t{dataset_name}")
+        print(f"Classificator:\t\t{self.name}")
+        print(f"Training percent:\t{self.tt_ratio * 100}%\n")
+
+    def print_stats(self, dataset_name, basic=True):
+        utils.clear()
+        if basic is True:
+            self.print_basic_stats(dataset_name)
+        print(self.get_metrics())
