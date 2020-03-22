@@ -11,14 +11,14 @@ def print_stats(metrics=None):
     dataset_name = {1: "Fall detection data from China",
                     2: "Rain in Australia",
                     3: "Suicide rates overview 1985-2016"}[arg_parser.args.dataset]
-    print(f"Data set:         \t{dataset_name}")
+    print(f"Data set:         {dataset_name}")
     method_name = {1: "Decision trees algorithm",
                    2: "Naive Bayes classifier",
                    3: "Support-vector machine",
                    4: "k-nearest neighbors algorithm",
                    5: "Artificial neural network algorithm"}[setup["classifier"]]
-    print(f"Classification:   \t{method_name}")
-    print(f"Training fraction:\t{setup['training_fraction']}\n")
+    print(f"Classification:   {method_name}")
+    print(f"Training percent: {setup['training_fraction']*100}%\n")
     print(metrics)
 
 

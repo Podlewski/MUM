@@ -25,8 +25,8 @@ def load_dataset(n):
     return pandas.read_csv(file).dropna()
 
 
-def factorize(col):
-    if col.dtype in [numpy.float64, numpy.float32, numpy.int32, numpy.int64]:
-        return col
+def factorize(column):
+    if column.dtype in [numpy.float64, numpy.float32, numpy.int32, numpy.int64]:
+        return column
     else:
-        return pandas.factorize(col)[0]
+        return pandas.factorize(column)[0]

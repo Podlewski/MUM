@@ -7,13 +7,13 @@ class ArgumentParser:
 
     def __init__(self):
         self.parser = argparse.ArgumentParser(
-            prog='MUM - Task 1',
-            description='Lodz University of Technology (TUL)'
-                        '\nMachine learning methods (Metody uczenia maszynowego)'
-                        '\n\nTask 1 - Problem set 1'
-                        '\nAuthors:\nPaweł Galewicz'
-                        '\nBartosz Jurczewski\nZbigniew Nowacki'
-                        '\nKarol Podlewski\nPiotr Wardęcki')
+            prog='MUM - Task 1', formatter_class=argparse.RawTextHelpFormatter,
+            description="Lodz University of Technology (TUL)"
+                    "\nMachine learning methods (Metody uczenia maszynowego)"
+                    "\n\nTask 1 - Problem set 1"
+                    "\n\nAuthors:\n  Paweł Galewicz\t234053"
+                    "\n  Bartosz Jurczewski\t234067\n  Zbigniew Nowacki\t234102"
+                    "\n  Karol Podlewski\t234106\n  Piotr Wardęcki\t234128")
 
         # data sets
         self.parser.add_argument('-d1', dest='dataset', action='store_const', const=1,
@@ -21,9 +21,7 @@ class ArgumentParser:
         self.parser.add_argument('-d2', dest='dataset', action='store_const', const=2,
                                  help='Use data set "Rain in Australia"')
         self.parser.add_argument('-d3', dest='dataset', action='store_const', const=3,
-                                 help='Use data set "Sucide rates overview"')
-        # self.parser.add_argument('-d', metavar='STR', dest='dataset_path', type=string,
-        #                          default=False, help='Insert path to data set file')                         
+                                 help='Use data set "Sucide rates overview"')                      
 
         # classifiers
         self.parser.add_argument('-c1', dest='classifier', action='store_const', const=1,
