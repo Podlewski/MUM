@@ -55,7 +55,7 @@ class ArgumentParser:
                 self.args.dataset = int(input('Choose data set:\n'
                                               '[1] Fall detection data from China\n'
                                               '[2] Rain in Australia\n'
-                                              '[3] Suicide rates overview 1985-2016\n\n'
+                                              '[3] Prima Indians Diabetes Database\n\n'
                                               'Choice: '))
         return datasets[self.args.dataset]
 
