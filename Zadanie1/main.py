@@ -25,11 +25,17 @@ data = data.apply(factorize)
 fraction = setup["training_fraction"]
 class_args = arg_parser.get_classifier_arguments()
 
-classifier = {1: DecisionTree(data, lr, labels, fraction, class_args),
-              2: Bayes(data, lr, labels, fraction, class_args),
-              3: SVM(data, lr, labels, fraction, class_args),
-              4: KNeighbors(data, lr, labels, fraction, class_args),
-              5: NeuralNetwork(data, lr, labels, fraction, class_args)}[setup["classifier"]]
+if setup["classifier"] is 1:
+    classifier = DecisionTree(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 2:
+    classifier = Bayes(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 3:
+    classifier = SVM(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 4:
+    classifier = KNeighbors(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 5:
+    classifier = NeuralNetwork(data, lr, labels, fraction, class_args)
+
 classifier.train()
 classifier.test()
 
