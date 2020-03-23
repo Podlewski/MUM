@@ -1,7 +1,7 @@
 import warnings
 from sklearn import metrics
 
-import utils 
+import utils
 
 
 class Classifier:
