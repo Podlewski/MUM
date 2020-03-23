@@ -1,3 +1,5 @@
+from timeit import default_timer as timer
+
 from argParser import ArgumentParser
 from classifiers.bayes import Bayes
 from classifiers.decisionTree import DecisionTree
@@ -36,7 +38,14 @@ elif setup["classifier"] is 4:
 elif setup["classifier"] is 5:
     classifier = NeuralNetwork(data, lr, labels, fraction, class_args)
 
+start = timer()
+
 classifier.train()
 classifier.test()
 
+end = timer()
+
 classifier.print_stats(setup["dataset_name"])
+
+if arg_parser.is_time_measured() is True:
+    print(f"\nTime:\t{round(end - start, 2)}s\n")
