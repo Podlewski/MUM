@@ -40,7 +40,7 @@ class ArgumentParser:
                                  default=0, help='Set percent of training set')
 
         # classifiers argument
-        self.parser.add_argument('-a', metavar='N', dest='class_args', type=int,
+        self.parser.add_argument('-a', metavar='N', dest='class_args', type=float,
                                  nargs='+', default=[-1,-1,-1],
                                  help = 'Argument of chosen classifier')
 

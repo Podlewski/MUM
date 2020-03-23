@@ -15,10 +15,11 @@ class SVM(Classifier):
     def __init__(self, data, lr, labels, training_fraction, arguments):
         super().__init__(data, lr, labels, training_fraction, arguments)
 
-        while(0.01 > arguments[0] or arguments[0] > 100):
+        while(0.01 > arguments[0] or arguments[0] > 10):
             clear()
-            arguments[0] = int(input("Regularization (from 0.01 to 100): "))
+            arguments[0] = int(input("Regularization (from 0.01 to 10): "))
 
+        arguments[1] = int(arguments[1])
         while(0 >= arguments[1] or arguments[1] >= 5):
             clear()
             arguments[1] = int(input("Choose kernel:\n"
@@ -60,10 +61,12 @@ class SVM(Classifier):
             super().print_basic_stats(dataset_name)
         print(f"Regularization:\t\t{self.arguments[0]}")
         print(f"Kernel:\t\t\t{self.kernel_names[self.arguments[1]]}")
-        if self.arguments[2] is not 3 and self.arguments[1] is not 1: 
-            print(f"Gamma:\t\t\t{self.arguments[2]}")
-        elif self.arguments[2] is 3 and self.arguments[1] is not 1:
-            print(f"Gamma:\t\t\t{self.arguments[3]}")
+
+        if self.arguments[1] is not 1:
+            if self.arguments[2] is not 3: 
+                print(f"Gamma:\t\t\t{self.arguments[2]}")
+            else:
+                print(f"Gamma:\t\t\t{self.arguments[3]}")
         print()
 
         print(self.get_metrics())
