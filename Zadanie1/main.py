@@ -45,7 +45,7 @@ classifier.test()
 
 end = timer()
 
-classifier.print_stats(setup["dataset_name"])
+classifier.print_stats(setup["dataset_name"], arg_parser.is_just_accuracy())
 
 if arg_parser.is_time_measured() is True:
     print(f"\nTime:\t{round(end - start, 2)}s\n")

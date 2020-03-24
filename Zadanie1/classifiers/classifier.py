@@ -67,6 +67,11 @@ class Classifier:
             digits=3
         )
 
+    def get_accuracy(self):
+        return metrics.accuracy_score(
+            self.test_target_values,
+            self.prediction)
+
     def print_basic_stats(self, dataset_name):
         utils.clear()
         if dataset_name is not None:
@@ -74,8 +79,12 @@ class Classifier:
         print(f"Classificator:\t\t{self.name}")
         print(f"Training percent:\t{self.tt_ratio * 100}%\n")
 
-    def print_stats(self, dataset_name, basic=True):
+    def print_stats(self, dataset_name, only_accuracy=False):
         utils.clear()
-        if basic is True:
+
+        if only_accuracy is False:
             self.print_basic_stats(dataset_name)
-        print(self.get_metrics())
+            print(self.get_metrics())
+        
+        else:
+            print(self.get_accuracy())

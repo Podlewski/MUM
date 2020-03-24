@@ -56,17 +56,20 @@ class SVM(Classifier):
                                     gamma=arguments[3])
 
 
-    def print_stats(self, dataset_name, basic=True):
-        if basic is True:
+    def print_stats(self, dataset_name, only_accuracy=False):
+        if only_accuracy is True:
+            super().print_stats(dataset_name, only_accuracy)
+
+        else:
             super().print_basic_stats(dataset_name)
-        print(f"Regularization:\t\t{self.arguments[0]}")
-        print(f"Kernel:\t\t\t{self.kernel_names[self.arguments[1]]}")
+            print(f"Regularization:\t\t{self.arguments[0]}")
+            print(f"Kernel:\t\t\t{self.kernel_names[self.arguments[1]]}")
 
-        if self.arguments[1] is not 1:
-            if self.arguments[2] is not 3: 
-                print(f"Gamma:\t\t\t{self.arguments[2]}")
-            else:
-                print(f"Gamma:\t\t\t{self.arguments[3]}")
-        print()
+            if self.arguments[1] is not 1:
+                if self.arguments[2] is not 3: 
+                    print(f"Gamma:\t\t\t{self.arguments[2]}")
+                else:
+                    print(f"Gamma:\t\t\t{self.arguments[3]}")
+            print()
 
-        print(self.get_metrics())
+            print(self.get_metrics())

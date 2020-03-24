@@ -44,9 +44,15 @@ class ArgumentParser:
                                  nargs='+', default=[-1,-1,-1],
                                  help = 'Argument of chosen classifier')
 
+        # extra options
         self.parser.add_argument('--time', dest='time', action='store_const',
                                  const=True, default=False,
                                  help='Measure time of classification')
+
+        # extra options
+        self.parser.add_argument('--accuracy', dest='just_accuracy',
+                                 action='store_const', const=True, default=False,
+                                 help='Print only accuracy (and time with --time)')
 
         # parse
         self.args = self.parser.parse_args()
@@ -88,6 +94,9 @@ class ArgumentParser:
 
     def get_classifier_arguments(self):
         return self.args.class_args
+
+    def is_just_accuracy(self):
+        return self.args.just_accuracy
 
     def is_time_measured(self):
         return self.args.time
