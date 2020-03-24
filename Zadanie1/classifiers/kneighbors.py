@@ -9,4 +9,5 @@ class KNeighbors(Classifier):
 
     def __init__(self, data, lr, labels, training_fraction, arguments):
         super().__init__(data, lr, labels, training_fraction, arguments)
-        self.model = n.KNeighborsClassifier()
+        n_neighbors = int(input("Choose a number of neighbors:"))
+        self.model = n.KNeighborsClassifier(n_neighbors)
