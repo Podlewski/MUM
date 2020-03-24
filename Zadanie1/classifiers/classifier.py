@@ -87,4 +87,4 @@ class Classifier:
             print(self.get_metrics())
         
         else:
-            print(self.get_accuracy())
+            print(round(self.get_accuracy(), 3))
