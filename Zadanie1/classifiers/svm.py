@@ -44,13 +44,13 @@ class SVM(Classifier):
                                     "[3] Float\n\n"
                                     "Choice: "))
 
+            arguments[2] = int(arguments[2])
             if arguments[2] is not 3:
-                arguments[2] = int(arguments[2])
                 self.model = svm.SVC(C=arguments[0],
                                      kernel=self.kernel[arguments[1]],
                                      gamma=self.gamma[arguments[2]])
             else:
-                while(0.1 > arguments[3] or arguments[3] >= 10):
+                while(0.1 > arguments[3] or arguments[3] > 10):
                     clear()
                     arguments[0] = int(input("Gamma value (from 0.1 to 10): "))
 
