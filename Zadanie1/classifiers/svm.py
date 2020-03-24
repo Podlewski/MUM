@@ -11,6 +11,8 @@ class SVM(Classifier):
     kernel = {1: "linear", 2: "rbf", 3: "poly", 4: "sigmoid"}
     kernel_names = {1: "Linear", 2: "RBF (Radial Basis Function)",
                     3: "Polynomial", 4: "Sigmoid"}
+    gamma = {1: "scale", 2: "auto"}
+    gamma_names = {1: "Scale", 2: "Auto"}
 
     def __init__(self, data, lr, labels, training_fraction, arguments):
         super().__init__(data, lr, labels, training_fraction, arguments)
@@ -43,9 +45,10 @@ class SVM(Classifier):
                                     "Choice: "))
 
             if arguments[2] is not 3:
+                arguments[2] = int(arguments[2])
                 self.model = svm.SVC(C=arguments[0],
-                                    kernel=self.kernel[arguments[1]],
-                                    gamma=arguments[2])
+                                     kernel=self.kernel[arguments[1]],
+                                     gamma=self.gamma[arguments[2]])
             else:
                 while(0.1 > arguments[3] or arguments[3] >= 10):
                     clear()
@@ -67,7 +70,7 @@ class SVM(Classifier):
 
             if self.arguments[1] is not 1:
                 if self.arguments[2] is not 3: 
-                    print(f"Gamma:\t\t\t{self.arguments[2]}")
+                    print(f"Gamma:\t\t\t{self.gamma_names[self.arguments[2]]}")
                 else:
                     print(f"Gamma:\t\t\t{self.arguments[3]}")
             print()
