@@ -4,7 +4,6 @@ from classifiers.classifier import Classifier
 
 
 class Bayes(Classifier):
-
     name = "Naive Bayes classifier"
 
     def __init__(self, data, lr, labels, training_fraction, arguments):

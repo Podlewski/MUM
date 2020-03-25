@@ -4,7 +4,6 @@ from classifiers.classifier import Classifier
 
 
 class DecisionTree(Classifier):
-
     name = "Decision trees algorithm"
 
     def __init__(self, data, lr, labels, training_fraction, arguments):

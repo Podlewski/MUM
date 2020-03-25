@@ -9,27 +9,27 @@ class ArgumentParser:
         self.parser = argparse.ArgumentParser(
             prog='MUM - Task 1', formatter_class=argparse.RawTextHelpFormatter,
             description="Lodz University of Technology (TUL)"
-                    "\nMachine learning methods (Metody uczenia maszynowego)"
-                    "\n\nTask 1 - Problem set 1"
-                    "\n\nAuthors:\n  Paweł Galewicz\t234053"
-                    "\n  Bartosz Jurczewski\t234067\n  Zbigniew Nowacki\t234102"
-                    "\n  Karol Podlewski\t234106\n  Piotr Wardęcki\t234128")
+                        "\nMachine learning methods (Metody uczenia maszynowego)"
+                        "\n\nTask 1 - Problem set 1"
+                        "\n\nAuthors:\n  Paweł Galewicz\t234053"
+                        "\n  Bartosz Jurczewski\t234067\n  Zbigniew Nowacki\t234102"
+                        "\n  Karol Podlewski\t234106\n  Piotr Wardęcki\t234128")
 
         # data sets
         self.parser.add_argument('-d', metavar='N', dest='dataset', type=int,
                                  default=0, help='Select data set:'
-                                 '\n  [1] - Fall detection data from China'
-                                 '\n  [2] - Rain in Australia'
-                                 '\n  [3] - Prima Indians Diabetes Database')
+                                                 '\n  [1] - Fall detection data from China'
+                                                 '\n  [2] - Rain in Australia'
+                                                 '\n  [3] - Pima Indians Diabetes Database')
 
         # classifiers
         self.parser.add_argument('-c', metavar='N', dest='classifier', type=int,
                                  default=0, help='Select algorithm:'
-                                 '\n  [1] - Decision trees algorithm'
-                                 '\n  [2] - Naive Bayes'
-                                 '\n  [3] - Support-vector machine'
-                                 '\n  [4] - k-nearest neighbors'
-                                 '\n  [5] - Artificial neural network')
+                                                 '\n  [1] - Decision trees algorithm'
+                                                 '\n  [2] - Naive Bayes'
+                                                 '\n  [3] - Support-vector machine'
+                                                 '\n  [4] - k-nearest neighbors'
+                                                 '\n  [5] - Artificial neural network')
 
         # training percent
         self.parser.add_argument('-t', metavar='N', dest='training_percent', type=int,
@@ -37,8 +37,8 @@ class ArgumentParser:
 
         # classifiers argument
         self.parser.add_argument('-a', metavar='N', dest='class_args', type=float,
-                                 nargs='+', default=[-1,-1,-1],
-                                 help = 'Arguments of chosen classifier')
+                                 nargs='+', default=[-1, -1, -1],
+                                 help='Arguments of chosen classifier')
 
         # extra options
         self.parser.add_argument('--time', dest='time', action='store_const',
@@ -57,10 +57,10 @@ class ArgumentParser:
         while 1 > self.args.dataset or self.args.dataset > 3:
             clear()
             self.args.dataset = int(input('Select data set:\n'
-                                            '[1] Fall detection data from China\n'
-                                            '[2] Rain in Australia\n'
-                                            '[3] Prima Indians Diabetes Database\n\n'
-                                            'Choice: '))
+                                          '[1] Fall detection data from China\n'
+                                          '[2] Rain in Australia\n'
+                                          '[3] Pima Indians Diabetes Database\n\n'
+                                          'Choice: '))
         return datasets[self.args.dataset]
 
     def get_dataset_name(self):
@@ -70,12 +70,12 @@ class ArgumentParser:
         while 1 > self.args.classifier or self.args.classifier > 5:
             clear()
             self.args.classifier = int(input('Select method:\n'
-                                                '[1] Decision trees algorithm\n'
-                                                '[2] Naive Bayes classifier\n'
-                                                '[3] Support-vector machine\n'
-                                                '[4] k-nearest neighbors algorithm\n'
-                                                '[5] Artificial neural network algorithm\n\n'
-                                                'Choice: '))
+                                             '[1] Decision trees algorithm\n'
+                                             '[2] Naive Bayes classifier\n'
+                                             '[3] Support-vector machine\n'
+                                             '[4] k-nearest neighbors algorithm\n'
+                                             '[5] Artificial neural network algorithm\n\n'
+                                             'Choice: '))
         return self.args.classifier
 
     def get_training_fraction(self):

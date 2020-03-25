@@ -8,7 +8,6 @@ from classifiers.neuralNetwork import NeuralNetwork
 from classifiers.svm import SVM
 from utils import clear, load_dataset, factorize, dataset_sides
 
-
 arg_parser = ArgumentParser()
 
 setup = {
@@ -37,6 +36,8 @@ elif setup["classifier"] is 4:
     classifier = KNeighbors(data, lr, labels, fraction, class_args)
 elif setup["classifier"] is 5:
     classifier = NeuralNetwork(data, lr, labels, fraction, class_args)
+else:
+    raise Exception("Invalid argument - classifier")
 
 start = timer()
 

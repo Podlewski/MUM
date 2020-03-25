@@ -1,4 +1,5 @@
 from os import system, name
+
 import numpy
 import pandas
 
@@ -7,7 +8,7 @@ datasets = {1: "./datasets/falldetection.csv",
             3: "./datasets/diabetes.csv"}
 dataset_names = {1: "Fall detection data from China",
                  2: "Rain in Australia",
-                 3: "Prima Indians Diabetes Database"}
+                 3: "Pima Indians Diabetes Database"}
 dataset_sides = {1: 'L',
                  2: 'R',
                  3: 'R'}
