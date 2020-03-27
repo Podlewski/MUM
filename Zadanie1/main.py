@@ -1,50 +1,52 @@
-from os import system, name
-import pandas
+from timeit import default_timer as timer
 
+from argParser import ArgumentParser
+from classifiers.bayes import Bayes
+from classifiers.decisionTree import DecisionTree
+from classifiers.kneighbors import KNeighbors
+from classifiers.neuralNetwork import NeuralNetwork
+from classifiers.svm import SVM
+from utils import clear, load_dataset, factorize, dataset_sides
 
-def clear():
-    if name == 'nt':
-        _ = system("cls")
-    else:
-        _ = system("clear")
+arg_parser = ArgumentParser()
 
-
-def path(n):
-    return {
-        '1': "./datasets/falldetection.csv",
-        '2': "./datasets/weatherAUS.csv",
-        '3': "./datasets/suicide-rates-overview-1985-to-2016.csv"
-    }[n]
-
-
-def load_dataset(n):
-    f = open(path(n))
-    f.readline()
-    return pandas.read_csv(f)
-
-
-setup = {}
-
-while 1:
-    clear()
-    setup["dataset"] = input("Choose data set:\n"
-                             "[1] Fall detection data from China\n"
-                             "[2] Rain in Australia\n"
-                             "[3] Suicide rates overview 1985-2016\t\t")
-    if '1' <= setup["dataset"] <= '3':
-        break
-
-while 1:
-    clear()
-    setup["method"] = input("Choose method:\n"
-                            "[1] Decision trees algorithm\n"
-                            "[2] Naive Bayes classifier\n"
-                            "[3] Support-vector machine\n"
-                            "[4] k-nearest neighbors algorithm\n"
-                            "[5] Artificial neural network algorithm\t\t")
-    if '1' <= setup["method"] <= '5':
-        break
-
+setup = {
+    "dataset": arg_parser.get_dataset_path(),
+    "dataset_name": arg_parser.get_dataset_name(),
+    "classifier": arg_parser.get_classifier(),
+    "training_fraction": arg_parser.get_training_fraction()
+}
 clear()
+
 data = load_dataset(setup["dataset"])
-print(data)
+lr = dataset_sides[arg_parser.args.dataset]
+labels = data[data.columns[0 if lr == 'L' else -1]].unique()
+data = data.apply(factorize)
+
+fraction = setup["training_fraction"]
+class_args = arg_parser.get_classifier_arguments()
+
+if setup["classifier"] is 1:
+    classifier = DecisionTree(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 2:
+    classifier = Bayes(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 3:
+    classifier = SVM(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 4:
+    classifier = KNeighbors(data, lr, labels, fraction, class_args)
+elif setup["classifier"] is 5:
+    classifier = NeuralNetwork(data, lr, labels, fraction, class_args)
+else:
+    raise Exception("Invalid argument - classifier")
+
+start = timer()
+
+classifier.train()
+classifier.test()
+
+end = timer()
+
+classifier.print_stats(setup["dataset_name"], arg_parser.is_just_accuracy())
+
+if arg_parser.is_time_measured() is True:
+    print(f"\nTime:\t{round(end - start, 2)}s\n")
