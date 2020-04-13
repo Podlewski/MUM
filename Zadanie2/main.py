@@ -26,7 +26,7 @@ algorithm = {
     2: Kmeans(data),
     3: Agglomerative(data,
                      n_clusters=8),
-    4: DensityBased(data)
+    4: DensityBased(data, class_args)
 }[setup['algorithm']]
 
 algorithm.fit_predict()
