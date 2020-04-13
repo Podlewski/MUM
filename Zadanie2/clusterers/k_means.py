@@ -24,10 +24,6 @@ class Kmeans(Clusterer, KMeans):
                 random_state = int(args[2])
                 random_state = random_state if random_state > 0 else None
 
-            print(n_init)
-            print(max_iter)
-            print(random_state)
-
             self.model = KMeans(
                 n_clusters=n_clusters,
                 n_init=n_init,
