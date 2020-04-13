@@ -7,3 +7,6 @@ class Clusterer:
 
     def fit_predict(self):
         return self.model.fit_predict(self.data)
+
+    def get_labels(self):
+        raise NotImplementedError

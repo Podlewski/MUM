@@ -13,3 +13,6 @@ class Agglomerative(Clusterer):
             linkage=linkage,
             affinity=affinity
         )
+
+    def get_labels(self):
+        return self.model.labels_

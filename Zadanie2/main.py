@@ -44,7 +44,7 @@ algorithm.fit_predict()
 pyplot.scatter(
     x=data.index,
     y=data.iloc[:, 4],
-    c=algorithm.model.labels_,
+    c=algorithm.get_labels(),
     cmap='rainbow'
 )
 
