@@ -22,7 +22,7 @@ data = data.apply(factorize)
 class_args = argument_parser.get_classifier_arguments()
 
 algorithm = {
-    1: ExpectationMaximization(data),
+    1: ExpectationMaximization(data, class_args),
     2: Kmeans(data),
     3: Agglomerative(data,
                      n_clusters=8),
