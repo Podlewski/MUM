@@ -12,21 +12,20 @@ argument_parser = ArgumentParser()
 setup = {
     "dataset": argument_parser.get_dataset_path(),
     "dataset_name": argument_parser.get_dataset_name(),
-    "algorithm": argument_parser.get_algorithm()
+    "algorithm": argument_parser.get_algorithm(),
+    "clusters": argument_parser.get_number_of_clusters(),
+    "class_args": argument_parser.get_classifier_arguments()
 }
 clear()
 
 data = load_dataset(setup['dataset'])
 data = data.apply(factorize)
 
-class_args = argument_parser.get_classifier_arguments()
-
 algorithm = {
-    1: ExpectationMaximization(data, class_args),
-    2: Kmeans(data),
-    3: Agglomerative(data,
-                     n_clusters=8),
-    4: DensityBased(data, class_args)
+    1: ExpectationMaximization(data, setup['clusters'], setup['class_args']),
+    2: Kmeans(data, setup['clusters'], setup['class_args']),
+    3: Agglomerative(data, setup['clusters']),
+    4: DensityBased(data, setup['class_args'])
 }[setup['algorithm']]
 
 algorithm.fit_predict()
@@ -48,7 +47,7 @@ pyplot.scatter(
     cmap='rainbow'
 )
 
-pyplot.xlabel("index")
+pyplot.xlabel("Index")
 pyplot.ylabel(data.columns[4])
 pyplot.grid(True, alpha=0.3)
 pyplot.savefig("plot", dpi=200, bbox_inches='tight')

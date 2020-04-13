@@ -1,3 +1,4 @@
+import sys
 from sklearn.cluster import KMeans
 
 from clusterers.clusterer import Clusterer
@@ -6,14 +7,36 @@ from clusterers.clusterer import Clusterer
 class Kmeans(Clusterer, KMeans):
     name = "K-means"
 
-    def __init__(self, data, n_clusters=8, n_init=10, max_iter= 300, random_state=None):
+    def __init__(self, data, n_clusters, args):
         super().__init__(data)
-        self.model = KMeans(
-            n_clusters=n_clusters,
-            n_init=n_init,
-            max_iter=max_iter,
-            random_state=random_state
-        )
+
+        try:
+            n_clusters = n_clusters if n_clusters > 0 else 5
+
+            n_init = int(args[0])
+            n_init = n_init if n_init > 0 else 10
+
+            max_iter = int(args[1])
+            max_iter = max_iter if max_iter > 0 else 300
+
+            random_state = args[2]
+            if random_state is not 'None':
+                random_state = int(args[2])
+                random_state = random_state if random_state > 0 else None
+
+            print(n_init)
+            print(max_iter)
+            print(random_state)
+
+            self.model = KMeans(
+                n_clusters=n_clusters,
+                n_init=n_init,
+                max_iter=max_iter,
+                random_state=random_state
+            )
+
+        except:
+            sys.exit("Incorrect parameters")
 
     def get_labels(self):
         return self.model.labels_

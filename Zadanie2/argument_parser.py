@@ -31,24 +31,14 @@ class ArgumentParser:
                                                  '\n  [4] - Density-Based Spatial Clustering of Applications with Noise'
                                                  '\n  [5] - labels')
 
-        # training percent
-        # self.parser.add_argument('-t', metavar='N', dest='training_percent', type=int,
-        #                          default=0, help='Set percent of training set')
+        # clusters
+        self.parser.add_argument('-c', metavar='N', dest='clusters', type=int,
+                                 default=5, help='Set the number of clusters')
 
         # algorithm parameters
-        self.parser.add_argument('-p', metavar='N', dest='class_args', type=float,
-                                 nargs='+', default=[-1, -1, -1],
+        self.parser.add_argument('-p', metavar='N', dest='class_args',
+                                 type=str, nargs='+', default=[-1, -1, -1],
                                  help='Arguments of chosen algorithm')
-
-        # extra options
-        self.parser.add_argument('--time', dest='time', action='store_const',
-                                 const=True, default=False,
-                                 help='Measure time of clustering')
-
-        # extra options
-        # self.parser.add_argument('--accuracy', dest='just_accuracy',
-        #                          action='store_const', const=True, default=False,
-        #                          help='Print only accuracy (and time with --time)')
 
         # parse
         self.args = self.parser.parse_args()
@@ -84,11 +74,8 @@ class ArgumentParser:
     #         self.args.training_percent = int(input('Percent of dataset used for training: '))
     #     return self.args.training_percent / 100
 
+    def get_number_of_clusters(self):
+        return self.args.clusters
+
     def get_classifier_arguments(self):
         return self.args.class_args
-
-    # def is_just_accuracy(self):
-    #     return self.args.just_accuracy
-
-    def is_time_measured(self):
-        return self.args.time
