@@ -42,6 +42,20 @@ class ArgumentParser:
                                  action='store_const', const=True, default=False,
                                  help='Fixed number of clusters od dataset '
                                       '(overwrites -c)')
+
+        # ploting options
+        self.parser.add_argument('--show', dest='show_plot',
+                                 action='store_const', const=True, default=False,
+                                 help='Displays plot')
+
+        self.parser.add_argument('-x', metavar='N', dest='x', type=int, default=None,
+                                 help='Set column attached to the X axis '
+                                      '(by default it is Index')
+
+        self.parser.add_argument('-y', metavar='N', dest='y', type=int, default=None,
+                                 help='Set column attached to the Y axis ' 
+                                      '(by default it is last column of dataset')
+
         # parse
         self.args = self.parser.parse_args()
 
@@ -85,3 +99,13 @@ class ArgumentParser:
 
     def get_fixed_n_clusters(self):
         return datasets_clusters[self.args.dataset]
+
+    def is_plot_shown(self):
+        return self.args.show_plot
+
+    def get_plot_x_axis(self):
+        return self.args.x
+
+    def get_plot_y_axis(self):
+        return self.args.y
+        

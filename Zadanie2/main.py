@@ -43,15 +43,31 @@ algorithm.fit_predict()
 #     cmap='rainbow'
 # )
 
+x = data.index
+y = data.iloc[:, len(data.columns)-1]
+
+xlabel = "Index"
+ylabel = data.columns[len(data.columns)-1]
+
+if argument_parser.get_plot_x_axis() is not None:
+    x = data.iloc[:, argument_parser.get_plot_x_axis()]
+    xlabel = data.columns[argument_parser.get_plot_x_axis()]
+
+if argument_parser.get_plot_y_axis() is not None:
+    y = data.iloc[:, argument_parser.get_plot_y_axis()]
+    ylabel = data.columns[argument_parser.get_plot_y_axis()]
+
 pyplot.scatter(
-    x=data.index,
-    y=data.iloc[:, 4],
+    x=x,
+    y=y,
     c=algorithm.get_labels(),
     cmap='rainbow'
 )
 
-pyplot.xlabel("Index")
-pyplot.ylabel(data.columns[4])
+pyplot.xlabel(xlabel)
+pyplot.ylabel(ylabel)
 pyplot.grid(True, alpha=0.3)
 pyplot.savefig("plot", dpi=200, bbox_inches='tight')
-pyplot.show()
+
+if argument_parser.is_plot_shown() is True:
+    pyplot.show()
