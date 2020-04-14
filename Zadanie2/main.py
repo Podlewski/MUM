@@ -34,7 +34,7 @@ if argument_parser.is_elbow_method_run() is False:
     elif setup['algorithm'] == 2:
         algorithm = Kmeans(data, setup['clusters'], setup['class_args'])
     elif setup['algorithm'] == 3:
-        algorithm = Agglomerative(data, setup['clusters'])
+        algorithm = Agglomerative(data, setup['clusters'], setup['class_args'])
     elif setup['algorithm'] == 4:
         algorithm = DensityBased(data, setup['class_args'])
     elif setup['algorithm'] == 5:

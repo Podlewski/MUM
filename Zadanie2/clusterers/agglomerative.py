@@ -6,10 +6,17 @@ from clusterers.clusterer import Clusterer
 class Agglomerative(Clusterer):
     name = "Agglomerative hierarchical clustering"
 
-    def __init__(self, data, n_clusters=2, linkage='ward', affinity='euclidean'):
+    def __init__(self, data, n_clusters, args):
         super().__init__(data)
-        self.model = AgglomerativeClustering(
-            n_clusters=n_clusters,
-            linkage=linkage,
-            affinity=affinity
-        )
+        try:
+            linkage = str(args[0])      # ward, complete, average, single
+            affinity = str(args[1])     # euclidean, manhattan
+            self.model = AgglomerativeClustering(
+                n_clusters=n_clusters,
+                linkage=linkage,
+                affinity=affinity
+            )
+        except:
+            self.model = AgglomerativeClustering(
+                n_clusters=n_clusters
+            )
