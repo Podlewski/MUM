@@ -17,5 +17,7 @@ class DensityBased(Clusterer, DBSCAN):
             self.min_samples = min_samples if min_samples > 0 else 7
             self.model = DBSCAN(eps=self.eps,
                                 min_samples=self.min_samples)
+
+            print('Number of clusters: ', max(self.model.fit_predict(self.data)) + 1)
         except:
             self.model = DBSCAN()
