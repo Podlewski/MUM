@@ -18,7 +18,7 @@ setup = {
     "clusters": argument_parser.get_number_of_clusters(),
     "class_args": argument_parser.get_classifier_arguments()
 }
-clear()
+# clear()
 
 if argument_parser.is_n_clusters_fixed() is True:
     setup['clusters'] = argument_parser.get_fixed_n_clusters()
@@ -34,12 +34,11 @@ if argument_parser.is_elbow_method_run() is False:
         4: DensityBased(data, setup['class_args'])
     }[setup['algorithm']]
 
-    labels = algorithm.fit().labels_
     data_labels = algorithm.fit_predict()
 
-    print(f'Silikon:\t %0.4f' % silhouette_score(data, labels))
-    print(f'Chrabąszcz:\t %0.4f' % calinski_harabasz_score(data, labels))
-    print(f'David Bowie:\t %0.4f' % davies_bouldin_score(data, labels))
+    print(f'Silikon:\t %0.4f' % silhouette_score(data, data_labels))
+    print(f'Chrabąszcz:\t %0.4f' % calinski_harabasz_score(data, data_labels))
+    print(f'David Bowie:\t %0.4f' % davies_bouldin_score(data, data_labels))
 
     # figure = pyplot.figure()
     # ax = figure.add_subplot(211, projection='3d')
