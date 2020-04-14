@@ -5,8 +5,17 @@ import pandas
 
 datasets = {1: "./datasets/Mall_Customers.csv",
             2: "./datasets/College.csv"}
-dataset_names = {1: "Mall Customer segmentation",
-                 2: "Statistics for US Colleges"}
+datasets_names = {1: "Mall Customer segmentation",
+                  2: "Statistics for US Colleges"}
+datasets_clusters = {1: 5,
+                     2: 8} 
+
+
+def print_datasets_names(extra_spacing = ''):
+    result = ""
+    for key in datasets_names:
+        result += extra_spacing + "[" + str(key) + "] - " + datasets_names[key] + '\n'
+    return result
 
 
 def clear():

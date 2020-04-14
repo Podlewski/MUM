@@ -1,6 +1,6 @@
 import argparse
 
-from utils import clear, datasets, dataset_names
+from utils import clear, datasets, datasets_names, datasets_clusters, print_datasets_names
 
 
 class ArgumentParser:
@@ -17,10 +17,7 @@ class ArgumentParser:
 
         # data sets
         self.parser.add_argument('-d', metavar='N', dest='dataset', type=int,
-                                 default=0, help='Select data set:'
-                                                 '\n  [1] - Mall Customer segmentation'
-                                                 '\n  [2] - Statistics for US Colleges'
-                                                 '\n  [3] - labels')
+                                 default=0, help='Select data set:\n'+print_datasets_names('  '))
 
         # algorithm
         self.parser.add_argument('-a', metavar='N', dest='algorithm', type=int,
@@ -40,21 +37,24 @@ class ArgumentParser:
                                  type=str, nargs='+', default=[-1, -1, -1],
                                  help='Arguments of chosen algorithm')
 
+        # fixed clusters
+        self.parser.add_argument('--fixed', dest='fixed_n_clusters',
+                                 action='store_const', const=True, default=False,
+                                 help='Fixed number of clusters od dataset '
+                                      '(overwrites -c)')
         # parse
         self.args = self.parser.parse_args()
 
     def get_dataset_path(self):
         while 1 > self.args.dataset or self.args.dataset > 3:
             clear()
-            self.args.dataset = int(input('Select data set:\n'
-                                          '[1] Mall Customer segmentation\n'
-                                          '[2] Statistics for US Colleges\n'
-                                          '[3] labels\n\n'
-                                          'Choice: '))
+            self.args.dataset = int(input('Select data set:\n' +
+                                          print_datasets_names() + 
+                                          '\nChoice: '))
         return datasets[self.args.dataset]
 
     def get_dataset_name(self):
-        return dataset_names[self.args.dataset]
+        return datasets_names[self.args.dataset]
 
     def get_algorithm(self):
         while 1 > self.args.algorithm or self.args.algorithm > 5:
@@ -79,3 +79,9 @@ class ArgumentParser:
 
     def get_classifier_arguments(self):
         return self.args.class_args
+
+    def if_n_clusters_fixed(self):
+        return self.args.fixed_n_clusters
+
+    def get_fixed_n_clusters(self):
+        return datasets_clusters[self.args.dataset]

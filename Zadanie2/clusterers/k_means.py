@@ -35,4 +35,5 @@ class Kmeans(Clusterer, KMeans):
             sys.exit("Incorrect parameters")
 
     def get_labels(self):
-        return self.model.labels_
+        print(self.model.fit_predict(self.data))
+        return self.model.fit_predict(self.data)

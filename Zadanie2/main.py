@@ -18,6 +18,9 @@ setup = {
 }
 clear()
 
+if argument_parser.if_n_clusters_fixed() is True:
+    setup['clusters'] = argument_parser.get_fixed_n_clusters()
+
 data = load_dataset(setup['dataset'])
 data = data.apply(factorize)
 
