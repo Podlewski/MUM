@@ -69,7 +69,8 @@ if argument_parser.is_elbow_method_run() is False:
     pyplot.ylabel(ylabel)
     pyplot.grid(True, alpha=0.3)
 
-    filename = algorithm.__class__.__name__ + "_x" + xlabel + "_y" + ylabel
+    filename = (algorithm.__class__.__name__ + "_x" + xlabel + "_y" + ylabel).replace(".", "")
+    print(filename)
     pyplot.savefig(filename, dpi=200, bbox_inches='tight')
 
     if argument_parser.is_plot_shown() is True:
