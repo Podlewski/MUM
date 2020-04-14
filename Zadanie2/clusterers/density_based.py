@@ -19,9 +19,3 @@ class DensityBased(Clusterer, DBSCAN):
                                 min_samples=self.min_samples)
         except:
             self.model = DBSCAN()
- 
-    def get_labels(self):
-        self.model.fit(self.data)
-        print(self.model.fit_predict(self.data))
-        return self.model.fit_predict(self.data)
-        

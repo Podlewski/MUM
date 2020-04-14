@@ -25,8 +25,3 @@ class ExpectationMaximization(Clusterer):
                                          max_iter=self.max_iterations)
         except:
             self.model = GaussianMixture()
-
-    def get_labels(self):
-        self.model.fit(self.data)
-        print(self.model.predict(self.data))
-        return self.model.predict(self.data)

@@ -32,7 +32,7 @@ if argument_parser.is_elbow_method_run() is False:
         4: DensityBased(data, setup['class_args'])
     }[setup['algorithm']]
 
-    algorithm.fit_predict()
+    data_labels = algorithm.fit_predict()
 
     # figure = pyplot.figure()
     # ax = figure.add_subplot(211, projection='3d')
@@ -61,7 +61,7 @@ if argument_parser.is_elbow_method_run() is False:
     pyplot.scatter(
         x=x,
         y=y,
-        c=algorithm.get_labels(),
+        c=data_labels,
         cmap='rainbow'
     )
 
@@ -75,7 +75,7 @@ if argument_parser.is_elbow_method_run() is False:
 
 else:
     distortions = []
-    K = range(1,11)
+    K = range(1, 11)
     for k in K:
         kmeans = Kmeans(data, k, setup['class_args'])
         distortions.append(kmeans.get_inertia_for_elbow())
