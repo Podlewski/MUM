@@ -28,13 +28,17 @@ data = load_dataset(setup['dataset'])
 data = data.apply(factorize)
 
 if argument_parser.is_elbow_method_run() is False:
-    algorithm = {
-        1: ExpectationMaximization(data, setup['clusters'], setup['class_args']),
-        2: Kmeans(data, setup['clusters'], setup['class_args']),
-        3: Agglomerative(data, setup['clusters']),
-        4: DensityBased(data, setup['class_args']),
-        5: Spectral(data, setup['clusters'], setup['class_args'])
-    }[setup['algorithm']]
+    algorithm = None
+    if setup['algorithm'] == 1:
+        algorithm = ExpectationMaximization(data, setup['clusters'], setup['class_args'])
+    elif setup['algorithm'] == 2:
+        algorithm = Kmeans(data, setup['clusters'], setup['class_args'])
+    elif setup['algorithm'] == 3:
+        algorithm = Agglomerative(data, setup['clusters'])
+    elif setup['algorithm'] == 4:
+        algorithm = DensityBased(data, setup['class_args'])
+    elif setup['algorithm'] == 5:
+        algorithm = Spectral(data, setup['clusters'], setup['class_args'])
 
     data_labels = algorithm.fit_predict()
 
