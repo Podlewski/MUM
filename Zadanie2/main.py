@@ -5,7 +5,7 @@ from clusterers.agglomerative import Agglomerative
 from clusterers.density_based import DensityBased
 from clusterers.expectation_maximization import ExpectationMaximization
 from clusterers.k_means import Kmeans
-from clusterers.Spectral_Clustering import Spectral
+from clusterers.Optic_Clustering import optics
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from utils import clear, load_dataset, factorize
 
@@ -38,7 +38,7 @@ if argument_parser.is_elbow_method_run() is False:
     elif setup['algorithm'] == 4:
         algorithm = DensityBased(data, setup['class_args'])
     elif setup['algorithm'] == 5:
-        algorithm = Spectral(data, setup['clusters'], setup['class_args'])
+        algorithm = optics(data, setup['class_args'])
 
     data_labels = algorithm.fit_predict()
 

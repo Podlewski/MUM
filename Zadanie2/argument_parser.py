@@ -26,7 +26,7 @@ class ArgumentParser:
                                                  '\n  [2] - k-means'
                                                  '\n  [3] - Agglomerative hierarchical clustering'
                                                  '\n  [4] - Density-Based Spatial Clustering of Applications with Noise'
-                                                 '\n  [5] - SpectralClustering')
+                                                 '\n  [5] - Optics')
 
         # clusters
         self.parser.add_argument('-c', metavar='N', dest='clusters', type=int,
@@ -86,7 +86,7 @@ class ArgumentParser:
                                             '[2] k-means\n'
                                             '[3] Agglomerative hierarchical clustering\n'
                                             '[4] Density-Based Spatial Clustering of Applications with Noise\n'
-                                            '[5] SpectralClustering\n\n'
+                                            '[5] Optics\n\n'
                                             'Choice: '))
         return self.args.algorithm
 
