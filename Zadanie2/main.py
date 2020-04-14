@@ -5,6 +5,7 @@ from clusterers.agglomerative import Agglomerative
 from clusterers.density_based import DensityBased
 from clusterers.expectation_maximization import ExpectationMaximization
 from clusterers.k_means import Kmeans
+from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from utils import clear, load_dataset, factorize
 
 argument_parser = ArgumentParser()
@@ -32,7 +33,12 @@ if argument_parser.is_elbow_method_run() is False:
         4: DensityBased(data, setup['class_args'])
     }[setup['algorithm']]
 
+    labels = algorithm.fit().labels_
     data_labels = algorithm.fit_predict()
+
+    print(f'Silikon:\t %0.4f' % silhouette_score(data, labels))
+    print(f'Chrabąszcz:\t %0.4f' % calinski_harabasz_score(data, labels))
+    print(f'David Bowie:\t %0.4f' % davies_bouldin_score(data, labels))
 
     # figure = pyplot.figure()
     # ax = figure.add_subplot(211, projection='3d')
