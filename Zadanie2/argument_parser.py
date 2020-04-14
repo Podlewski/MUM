@@ -1,6 +1,6 @@
 import argparse
 
-from utils import clear, datasets, datasets_names, datasets_clusters, print_datasets_names
+from utils import clear, datasets, datasets_names, simple_datasets_names, datasets_clusters, print_datasets_names
 
 
 class ArgumentParser:
@@ -74,6 +74,9 @@ class ArgumentParser:
 
     def get_dataset_name(self):
         return datasets_names[self.args.dataset]
+
+    def get_simple_dataset_name(self):
+        return simple_datasets_names[self.args.dataset]
 
     def get_algorithm(self):
         while 1 > self.args.algorithm or self.args.algorithm > 5:

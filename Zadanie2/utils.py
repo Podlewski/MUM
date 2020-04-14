@@ -7,8 +7,10 @@ datasets = {1: "./datasets/Mall_Customers.csv",
             2: "./datasets/College.csv"}
 datasets_names = {1: "Mall Customer segmentation",
                   2: "Statistics for US Colleges"}
+simple_datasets_names = {1: "Customers",
+                         2: "Colleges"}
 datasets_clusters = {1: 5,
-                     2: 8} 
+                     2: 2} 
 
 
 def print_datasets_names(extra_spacing = ''):

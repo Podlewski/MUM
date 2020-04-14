@@ -13,6 +13,7 @@ argument_parser = ArgumentParser()
 setup = {
     "dataset": argument_parser.get_dataset_path(),
     "dataset_name": argument_parser.get_dataset_name(),
+    "simple_name": argument_parser.get_simple_dataset_name(),
     "algorithm": argument_parser.get_algorithm(),
     "clusters": argument_parser.get_number_of_clusters(),
     "class_args": argument_parser.get_classifier_arguments()
@@ -75,7 +76,8 @@ if argument_parser.is_elbow_method_run() is False:
     pyplot.ylabel(ylabel)
     pyplot.grid(True, alpha=0.3)
 
-    filename = (algorithm.__class__.__name__ + "_x" + xlabel + "_y" + ylabel).replace(".", "")
+    filename = (algorithm.__class__.__name__ + "_" + setup['simple_name'] +
+                "_x" + xlabel + "_y" + ylabel).replace(".", "")
     pyplot.savefig(filename, dpi=200, bbox_inches='tight')
 
     if argument_parser.is_plot_shown() is True:
@@ -93,4 +95,9 @@ else:
     pyplot.plot(K, distortions, 'bx-')
     pyplot.xlabel('k')
     pyplot.ylabel('Distortion')
-    pyplot.show()
+    
+    filename = ("elbow_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+    
+    if argument_parser.is_plot_shown() is True:
+        pyplot.show()
