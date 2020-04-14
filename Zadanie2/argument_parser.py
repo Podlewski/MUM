@@ -1,6 +1,6 @@
 import argparse
 
-from utils import clear, datasets, datasets_names, datasets_clusters, print_datasets_names
+from utils import clear, datasets, datasets_names, simple_datasets_names, datasets_clusters, print_datasets_names
 
 
 class ArgumentParser:
@@ -26,7 +26,7 @@ class ArgumentParser:
                                                  '\n  [2] - k-means'
                                                  '\n  [3] - Agglomerative hierarchical clustering'
                                                  '\n  [4] - Density-Based Spatial Clustering of Applications with Noise'
-                                                 '\n  [5] - labels')
+                                                 '\n  [5] - SpectralClustering')
 
         # clusters
         self.parser.add_argument('-c', metavar='N', dest='clusters', type=int,
@@ -75,6 +75,9 @@ class ArgumentParser:
     def get_dataset_name(self):
         return datasets_names[self.args.dataset]
 
+    def get_simple_dataset_name(self):
+        return simple_datasets_names[self.args.dataset]
+
     def get_algorithm(self):
         while 1 > self.args.algorithm or self.args.algorithm > 5:
             clear()
@@ -83,7 +86,7 @@ class ArgumentParser:
                                             '[2] k-means\n'
                                             '[3] Agglomerative hierarchical clustering\n'
                                             '[4] Density-Based Spatial Clustering of Applications with Noise\n'
-                                            '[5] labels\n\n'
+                                            '[5] SpectralClustering\n\n'
                                             'Choice: '))
         return self.args.algorithm
 

@@ -5,6 +5,7 @@ from clusterers.agglomerative import Agglomerative
 from clusterers.density_based import DensityBased
 from clusterers.expectation_maximization import ExpectationMaximization
 from clusterers.k_means import Kmeans
+from clusterers.Spectral_Clustering import Spectral
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from utils import clear, load_dataset, factorize
 
@@ -13,11 +14,12 @@ argument_parser = ArgumentParser()
 setup = {
     "dataset": argument_parser.get_dataset_path(),
     "dataset_name": argument_parser.get_dataset_name(),
+    "simple_name": argument_parser.get_simple_dataset_name(),
     "algorithm": argument_parser.get_algorithm(),
     "clusters": argument_parser.get_number_of_clusters(),
     "class_args": argument_parser.get_classifier_arguments()
 }
-clear()
+# clear()
 
 if argument_parser.is_n_clusters_fixed() is True:
     setup['clusters'] = argument_parser.get_fixed_n_clusters()
@@ -30,15 +32,15 @@ if argument_parser.is_elbow_method_run() is False:
         1: ExpectationMaximization(data, setup['clusters'], setup['class_args']),
         2: Kmeans(data, setup['clusters'], setup['class_args']),
         3: Agglomerative(data, setup['clusters']),
-        4: DensityBased(data, setup['class_args'])
+        4: DensityBased(data, setup['class_args']),
+        5: Spectral(data, setup['clusters'], setup['class_args'])
     }[setup['algorithm']]
 
-    labels = algorithm.fit().labels_
     data_labels = algorithm.fit_predict()
 
-    print(f'Silikon:\t %0.4f' % silhouette_score(data, labels))
-    print(f'Chrabąszcz:\t %0.4f' % calinski_harabasz_score(data, labels))
-    print(f'David Bowie:\t %0.4f' % davies_bouldin_score(data, labels))
+    print(f'Silikon:\t %0.4f' % silhouette_score(data, data_labels))
+    print(f'Chrabąszcz:\t %0.4f' % calinski_harabasz_score(data, data_labels))
+    print(f'David Bowie:\t %0.4f' % davies_bouldin_score(data, data_labels))
 
     # figure = pyplot.figure()
     # ax = figure.add_subplot(211, projection='3d')
@@ -75,7 +77,8 @@ if argument_parser.is_elbow_method_run() is False:
     pyplot.ylabel(ylabel)
     pyplot.grid(True, alpha=0.3)
 
-    filename = (algorithm.__class__.__name__ + "_x" + xlabel + "_y" + ylabel).replace(".", "")
+    filename = (algorithm.__class__.__name__ + "_" + setup['simple_name'] +
+                "_x" + xlabel + "_y" + ylabel).replace(".", "")
     pyplot.savefig(filename, dpi=200, bbox_inches='tight')
 
     if argument_parser.is_plot_shown() is True:
@@ -93,4 +96,9 @@ else:
     pyplot.plot(K, distortions, 'bx-')
     pyplot.xlabel('k')
     pyplot.ylabel('Distortion')
-    pyplot.show()
+    
+    filename = ("elbow_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+    
+    if argument_parser.is_plot_shown() is True:
+        pyplot.show()
