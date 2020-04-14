@@ -16,9 +16,9 @@ simple_datasets_names = {1: "Customer",
                          3: "CC",
                          4: "Leaf"}
 datasets_clusters = {1: 5,
-                     2: 8,
-                     3: 5,
-                     4: 5}
+                     2: 4,
+                     3: 3,
+                     4: 4}
 
 
 def print_datasets_names(extra_spacing = ''):

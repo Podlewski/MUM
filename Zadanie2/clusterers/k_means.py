@@ -32,7 +32,6 @@ class Kmeans(Clusterer, KMeans):
         )
 
 
-
     def get_inertia_for_elbow(self):
         self.model.fit(self.data)
         return self.model.inertia_
