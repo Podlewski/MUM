@@ -18,56 +18,71 @@ setup = {
 }
 clear()
 
-if argument_parser.if_n_clusters_fixed() is True:
+if argument_parser.is_n_clusters_fixed() is True:
     setup['clusters'] = argument_parser.get_fixed_n_clusters()
 
 data = load_dataset(setup['dataset'])
 data = data.apply(factorize)
 
-algorithm = {
-    1: ExpectationMaximization(data, setup['clusters'], setup['class_args']),
-    2: Kmeans(data, setup['clusters'], setup['class_args']),
-    3: Agglomerative(data, setup['clusters']),
-    4: DensityBased(data, setup['class_args'])
-}[setup['algorithm']]
+if argument_parser.is_elbow_method_run() is False:
+    algorithm = {
+        1: ExpectationMaximization(data, setup['clusters'], setup['class_args']),
+        2: Kmeans(data, setup['clusters'], setup['class_args']),
+        3: Agglomerative(data, setup['clusters']),
+        4: DensityBased(data, setup['class_args'])
+    }[setup['algorithm']]
 
-algorithm.fit_predict()
+    algorithm.fit_predict()
 
-# figure = pyplot.figure()
-# ax = figure.add_subplot(211, projection='3d')
-# ax.scatter(
-#     data.index,
-#     data.loc[:, correlation[0]],
-#     data.loc[:, correlation[1]],
-#     c=algorithm.model.labels_,
-#     cmap='rainbow'
-# )
+    # figure = pyplot.figure()
+    # ax = figure.add_subplot(211, projection='3d')
+    # ax.scatter(
+    #     data.index,
+    #     data.loc[:, correlation[0]],
+    #     data.loc[:, correlation[1]],
+    #     c=algorithm.model.labels_,
+    #     cmap='rainbow'
+    # )
 
-x = data.index
-y = data.iloc[:, len(data.columns)-1]
+    x = data.index
+    y = data.iloc[:, len(data.columns)-1]
 
-xlabel = "Index"
-ylabel = data.columns[len(data.columns)-1]
+    xlabel = "Index"
+    ylabel = data.columns[len(data.columns)-1]
 
-if argument_parser.get_plot_x_axis() is not None:
-    x = data.iloc[:, argument_parser.get_plot_x_axis()]
-    xlabel = data.columns[argument_parser.get_plot_x_axis()]
+    if argument_parser.get_plot_x_axis() is not None:
+        x = data.iloc[:, argument_parser.get_plot_x_axis()]
+        xlabel = data.columns[argument_parser.get_plot_x_axis()]
 
-if argument_parser.get_plot_y_axis() is not None:
-    y = data.iloc[:, argument_parser.get_plot_y_axis()]
-    ylabel = data.columns[argument_parser.get_plot_y_axis()]
+    if argument_parser.get_plot_y_axis() is not None:
+        y = data.iloc[:, argument_parser.get_plot_y_axis()]
+        ylabel = data.columns[argument_parser.get_plot_y_axis()]
 
-pyplot.scatter(
-    x=x,
-    y=y,
-    c=algorithm.get_labels(),
-    cmap='rainbow'
-)
+    pyplot.scatter(
+        x=x,
+        y=y,
+        c=algorithm.get_labels(),
+        cmap='rainbow'
+    )
 
-pyplot.xlabel(xlabel)
-pyplot.ylabel(ylabel)
-pyplot.grid(True, alpha=0.3)
-pyplot.savefig("plot", dpi=200, bbox_inches='tight')
+    pyplot.xlabel(xlabel)
+    pyplot.ylabel(ylabel)
+    pyplot.grid(True, alpha=0.3)
+    pyplot.savefig("plot", dpi=200, bbox_inches='tight')
 
-if argument_parser.is_plot_shown() is True:
+    if argument_parser.is_plot_shown() is True:
+        pyplot.show()
+
+else:
+    distortions = []
+    K = range(1,11)
+    for k in K:
+        kmeans = Kmeans(data, k, setup['class_args'])
+        distortions.append(kmeans.get_inertia_for_elbow())
+
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(K, distortions, 'bx-')
+    pyplot.xlabel('k')
+    pyplot.ylabel('Distortion')
     pyplot.show()

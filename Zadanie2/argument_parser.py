@@ -56,6 +56,11 @@ class ArgumentParser:
                                  help='Set column attached to the Y axis ' 
                                       '(by default it is last column of dataset')
 
+        # another
+        self.parser.add_argument('--elbow', dest='elbow', action='store_const',
+                                 const=True, default=False,
+                                 help='Runs Elbow Method on chosen dataset')
+
         # parse
         self.args = self.parser.parse_args()
 
@@ -94,7 +99,7 @@ class ArgumentParser:
     def get_classifier_arguments(self):
         return self.args.class_args
 
-    def if_n_clusters_fixed(self):
+    def is_n_clusters_fixed(self):
         return self.args.fixed_n_clusters
 
     def get_fixed_n_clusters(self):
@@ -108,4 +113,6 @@ class ArgumentParser:
 
     def get_plot_y_axis(self):
         return self.args.y
-        
+
+    def is_elbow_method_run(self):
+        return self.args.elbow
