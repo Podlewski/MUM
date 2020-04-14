@@ -65,7 +65,7 @@ class ArgumentParser:
         self.args = self.parser.parse_args()
 
     def get_dataset_path(self):
-        while 1 > self.args.dataset or self.args.dataset > 3:
+        while 1 > self.args.dataset or self.args.dataset > 4:
             clear()
             self.args.dataset = int(input('Select data set:\n' +
                                           print_datasets_names() + 

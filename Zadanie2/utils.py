@@ -4,13 +4,21 @@ import numpy
 import pandas
 
 datasets = {1: "./datasets/Mall_Customers.csv",
-            2: "./datasets/winequality-red.csv"}
+            2: "./datasets/winequality-red.csv",
+            3: "./datasets/credit-card.csv",
+            4: "./datasets/leaf.csv"}
 datasets_names = {1: "Mall Customer segmentation",
-                  2: "Red wine quality"}
+                  2: "Red wine quality",
+                  3: "Credit card data",
+                  4: "Leaf parameters"}
 simple_datasets_names = {1: "Customer",
-                         2: "Wines"}
+                         2: "Wines",
+                         3: "CC",
+                         4: "Leaf"}
 datasets_clusters = {1: 5,
-                     2: 8} 
+                     2: 8,
+                     3: 5,
+                     4: 5}
 
 
 def print_datasets_names(extra_spacing = ''):
