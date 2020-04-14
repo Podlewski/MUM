@@ -7,6 +7,8 @@ datasets = {1: "./datasets/Mall_Customers.csv",
             2: "./datasets/winequality-red.csv"}
 datasets_names = {1: "Mall Customer segmentation",
                   2: "Red wine quality"}
+simple_datasets_names = {1: "Customer",
+                         2: "Wines"}
 datasets_clusters = {1: 5,
                      2: 8} 
 
