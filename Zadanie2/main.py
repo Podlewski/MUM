@@ -42,19 +42,9 @@ if argument_parser.is_elbow_method_run() is False:
 
     data_labels = algorithm.fit_predict()
 
-    print(f'Silikon:\t %0.4f' % silhouette_score(data, data_labels))
-    print(f'Chrabąszcz:\t %0.4f' % calinski_harabasz_score(data, data_labels))
-    print(f'David Bowie:\t %0.4f' % davies_bouldin_score(data, data_labels))
-
-    # figure = pyplot.figure()
-    # ax = figure.add_subplot(211, projection='3d')
-    # ax.scatter(
-    #     data.index,
-    #     data.loc[:, correlation[0]],
-    #     data.loc[:, correlation[1]],
-    #     c=algorithm.model.labels_,
-    #     cmap='rainbow'
-    # )
+    print(f'Silhouette:\t\t%0.4f' % silhouette_score(data, data_labels))
+    print(f'Calinski-Harabasz:\t%0.1f' % calinski_harabasz_score(data, data_labels))
+    print(f'Davies-Bouldin:\t\t%0.4f' % davies_bouldin_score(data, data_labels))
 
     x = data.index
     y = data.iloc[:, len(data.columns)-1]
