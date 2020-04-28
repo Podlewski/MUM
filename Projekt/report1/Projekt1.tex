@@ -1,0 +1,174 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[verbose,a4paper,tmargin=2cm,bmargin=2cm,lmargin=2.5cm,rmargin=2.5cm]{geometry}
+\usepackage{polski}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lastpage}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    urlcolor = cyan
+}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{multirow}
+\frenchspacing
+\pagestyle{fancyplain}
+\fancyhf{}
+
+\usepackage{setspace}
+\usepackage{enumitem}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\degree}{\ensuremath{^{\circ}}} 
+\fancyfoot[L]{MUM: P. Galewicz, B. Jurczewski, Z. Nowacki, K.Podlewski, P. Wardęcki}
+\fancyfoot[R]{\thepage\ / \pageref{LastPage}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% STRONA TYTUŁOWA
+
+\begin{document}
+
+
+\begin{titlepage}
+\begin{center}
+\begin{tabular}{rcl}
+\begin{tabular}{|r|}
+\hline \\
+\large{\underline{234053~~~~~~~~~~~~~~~~~~~~~~~} }\\
+\small{\textit{Numer indeksu}}\\
+\large{\underline{Paweł Galewicz~~~~~~~~~~~~} }\\
+\small{\textit{Imię i nazwisko}}\\\\ \hline
+\end{tabular} 
+&
+\begin{tabular}{|r|}
+\hline \\
+\large{\underline{234067~~~~~~~~~~~~~~~~~~~~~~~} }\\
+\small{\textit{Numer indeksu}}\\
+\large{\underline{Bartosz Jurczewski~~~~~~~} }\\
+\small{\textit{Imię i nazwisko}}\\\\ \hline
+\end{tabular} 
+&
+\begin{tabular}{|r|}
+\hline \\
+\large{\underline{234102~~~~~~~~~~~~~~~~~~~~~~~} }\\
+\small{\textit{Numer indeksu}}\\
+\large{\underline{Zbigniew Nowacki~~~~~~~~} }\\
+\small{\textit{Imię i nazwisko}}\\\\ \hline
+\end{tabular} 
+\end{tabular} 
+
+\vspace{10px}
+
+\begin{tabular}{rl}
+\begin{tabular}{|r|}
+\hline \\
+\large{\underline{234106~~~~~~~~~~~~~~~~~~~~~~~} }\\
+\small{\textit{Numer indeksu}}\\
+\large{\underline{Karol Podlewski~~~~~~~~~~~} }\\
+\small{\textit{Imię i nazwisko}}\\\\ \hline
+\end{tabular} 
+&
+\begin{tabular}{|r|}
+\hline \\
+\large{\underline{234128~~~~~~~~~~~~~~~~~~~~~~~} }\\
+\small{\textit{Numer indeksu}}\\
+\large{\underline{Piotr Wardęcki~~~~~~~~~~~~} }\\
+\small{\textit{Imię i nazwisko}}\\\\ \hline
+\end{tabular} 
+\end{tabular}
+\end{center}
+
+\vspace{25px}
+
+\begin{tabular}{ll}
+\LARGE{\textbf{Kierunek}}& \LARGE{Informatyka Stosowana} \\
+\LARGE{\textbf{Stopień}}& \LARGE{II} \\
+\LARGE{\textbf{Specjalizacja}}& \LARGE{Data Science} \\
+\LARGE{\textbf{Semestr}}& \LARGE{1} \\\\
+\LARGE{\textbf{Data oddania}}& \LARGE{29 kwietnia 2020} \\\\\\\\\\\\\\
+\end{tabular}
+
+\begin{center}
+\textbf{\huge{\\~\\Metody uczenia maszynowego}}
+\textbf{\Huge{\\~\\Analiza danych przestępczych}}
+\textbf{\Large{\\~\\Propozycja projektu grupowego}}
+\end{center}
+
+\end{titlepage}
+
+\setcounter{page}{2}
+% \setstretch{1.5}
+% \tableofcontents
+\newpage
+\setstretch{1.1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TYTUŁ
+
+\section{Tytuł} \label{sec:tytuł}
+
+Projekt jaki zamierzamy wykonać został zatytułowany \textbf{Analiza danych przestępczych}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DANE
+
+\section{Dane członków grupy} \label{sec:dane}
+
+Skład grupy:
+
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=1.1cm]
+    \item Paweł Galewicz        \quad 234053
+    \item Bartosz Jurczewski    \quad 234067
+    \item Zbigniew Nowacki      \quad 234102
+    \item Karol Podlewski       \quad 234106
+    \item Piotr Wardęcki        \quad 234128
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MOTYWACJA
+
+\section{Motywacja} \label{sec:motywacja}
+
+Klasyfikacja danych pozwala połączyć przypadki, które dla ludzkiego oka nie wydają się mieć ze sobą wiele wspólnego. Taka analiza może się okazać niezwykle przydatna nie tylko w przypadku danych medycznych, ale też przestępczych. Wiedząc co łączy nietypowe rabunki czy akty wandalizmu możemy lepiej zaplanować działania prewencyjne, a także lepiej chronić nasze mienie jak i samych siebie.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CELE PROJEKTU
+
+\section{Cele projektu}
+
+Celem projektu jest przeprowadzenie badania mającego na celu zwiększenie efektywności działań prewencyjnych służb mundurowych. Program zostanie wykonany przy użyciu języka programowania Python wraz z różnymi dostępnymi frameworkami pozwalającymi na szybką i skuteczną implementację niezbędnych algorytmów. Wykonanie projektu pozwoli nam na lepsze zrozumienie działania algorytmów oraz wzrost umiejętności pracy z dużymi zbiorami danych które są wykorzystywane w rzeczywistych warunkach. Dodatkowymi korzyściami będzie nauka pisania czytelniejszego kodu w składni języka Python, a także lepsze poznanie wielu bibliotek pomocniczych, tylko pośrednio związanych z analizą danych. Wykonanie projektu powinno się zakończyć wyciągnięciem i przedstawieniem uzyskanych wniosków na początku czerwca.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% JAKIE DANE
+
+\section{Opis zbiorów danych} \label{sec:dataset}
+
+Dane zostaną pozyskane z wykorzystaniem najpopularniejszych repozytoriów danych (m.in. Kaggle, UCI Repository czy Makeover Monday). Zostanie podjęta próba odszukania danych na stronach anglo- i polskojęzycznych, które są bezpośrednio lub pośrednio powiązane z publicznymi jednostkami monitorującymi przestępstwa (na przykład strony rządowe czy strony 
+funkcjonariatów policji). Scenariusz optymistyczny zakłada pozyskanie danych zbieranych na przestrzeni wielu lat. Takie dane potencjalnie pomóc mogą w odkryciu interesujących trendów, które pozwolą na głębsze zrozumienie zjawiska przestępczości oraz gdzie może ono zmierzać w przyszłości.
+\par
+Dodatkowo planowane jest zestawienie danych o występkach ze statystykami miejsc, w których dane zjawiska występują. Poszerzy to pogląd na dane i pozwoli na poszerzenie poglądu na informacje o otoczeniu i społeczności, w której występki mają miejsce.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BADANIA
+
+\section{Plan czynności}
+
+\begin{enumerate}
+    \item Pozyskanie jak największej liczby danych o przestępczości
+    \item Zapoznanie się ze zgromadzonym zestawem i ocena jego użyteczności
+    \item Czyszczenie zbioru danych oraz próba wyekstrahowania najistotniejszych cech
+    \item Zestawienie danych o przestępczości z danymi statystycznymi miejsc ich występowania
+    \item Analiza pod kątem niestandardowych, obiecujących korelacji danych, które warte będą dalszego eksplorowania
+    \item Analiza skupień w celu znalezienia wzorców
+    \item Analiza częstotliwości oraz wystąpień w czasie, określenie tendencji i próba predykcji przyszłych wartości
+    \item Porównanie obszarów z największą częstością występowania zjawisk przestępczości w czasie
+\end{enumerate}
+
+\end{document}
