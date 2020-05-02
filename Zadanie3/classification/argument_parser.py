@@ -24,7 +24,7 @@ class ArgumentParser:
                                  help='Select data set:\n'+print_datasets_names())
 
         self.parser.add_argument('-c', metavar='CLASSIFIER', dest='classifier',
-                                 type=int, default=1, choices=range(1, 6),
+                                 type=int, default=0, choices=range(1, 6),
                                  help='Use only one classifier:'
                                       '\n  [1] - Decision trees algorithm'
                                       '\n  [2] - Naive Bayes'
@@ -39,6 +39,10 @@ class ArgumentParser:
         self.parser.add_argument('-a', metavar='N', dest='class_args',
                                  type=str, nargs='+', default=None,
                                  help='Arguments of chosen classifier')
+
+        self.parser.add_argument('--time', dest='time', action='store_const',
+                                 const=True, default=False,
+                                 help='Measure time of classification')
 
         self.args = self.parser.parse_args()
 

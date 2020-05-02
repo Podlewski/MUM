@@ -10,8 +10,8 @@ datasets_names = {
                   2: 'Rain in Australia',
                   3: 'Pima Indians Diabetes Database'}
 short_datasets_names = {
-                        2: 'Rain in Australia',
-                        3: 'Pima Indians Diabetes Database'}
+                        2: 'Rain',
+                        3: 'Diabetes'}
 
 
 def factorize(column):

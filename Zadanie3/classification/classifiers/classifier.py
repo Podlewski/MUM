@@ -81,6 +81,11 @@ class Classifier:
             self.test_target_values,
             self.prediction), digits)
 
+    def get_roc_curve(self):
+        return metrics.roc_curve(
+            self.test_target_values,
+            self.prediction)
+
     def print_confusion_matrix(self):
         tn, fp, fn, tp = self.get_confusion_matrix().ravel()
 
@@ -109,7 +114,7 @@ class Classifier:
         print(metrics_first_line)
         print(metrics_second_line)  
 
-    def print_stats(self, dataset_name, time, digits=3):
+    def print_stats(self, dataset_name, digits=3):
         print(f'Dataset:           {dataset_name}')
         print(f'Classificator:     {self.name}')
         print(f'Training percent:  {self.tt_ratio * 100}%')
@@ -118,5 +123,3 @@ class Classifier:
 
         self.print_confusion_matrix()
         self.print_metrics(digits)
-
-        print(f'\nTime: {round(time*1000, 2)} ms')

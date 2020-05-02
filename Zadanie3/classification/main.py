@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from numpy import flip
 from timeit import default_timer as timer
 
@@ -19,26 +20,46 @@ data = data.apply(factorize)
 fraction = args.training_fraction
 class_args = args.class_args
 
+if args.classifier is not 0:
+    if args.classifier is 1:
+        classifier = DecisionTree(data, labels, fraction, class_args)
+    elif args.classifier is 2:
+        classifier = Bayes(data, labels, fraction, class_args)
+    elif args.classifier is 3:
+        classifier = SVM(data, labels, fraction, class_args)
+    elif args.classifier is 4:
+        classifier = KNeighbors(data, labels, fraction, class_args)
+    elif args.classifier is 5:
+        classifier = NeuralNetwork(data, labels, fraction, class_args)
 
-if args.classifier is 0:
-    pass
-elif args.classifier is 1:
-    classifier = DecisionTree(data, labels, fraction, class_args)
-elif args.classifier is 2:
-    classifier = Bayes(data, labels, fraction, class_args)
-elif args.classifier is 3:
-    classifier = SVM(data, labels, fraction, class_args)
-elif args.classifier is 4:
-    classifier = KNeighbors(data, labels, fraction, class_args)
-elif args.classifier is 5:
-    classifier = NeuralNetwork(data, labels, fraction, class_args)
+    start = timer()
+    classifier.train()
+    classifier.test()
+    end = timer()
 
-start = timer()
+    classifier.print_stats(args.dataset_name)
 
-classifier.train()
-classifier.test()
+    if args.time is True:
+        print(f'\nTime:  {round((end - start)*1000, 2)} ms')
 
-end = timer()
-time = end - start
+else:
+    classifiers = [DecisionTree(data, labels, fraction, class_args),
+                   Bayes(data, labels, fraction, class_args),
+                   SVM(data, labels, fraction, class_args),
+                   KNeighbors(data, labels, fraction, class_args),
+                   NeuralNetwork(data, labels, fraction, class_args)]
+    
+    for classifier in classifiers:
 
-classifier.print_stats(args.dataset_name, time)
+        classifier.train()
+        classifier.test()
+
+        fpr, tpr, _ = classifier.get_roc_curve()
+
+        plt.plot(fpr, tpr, label=classifier.name)
+
+    plt.plot([0, 1], [0, 1], color='black', ls='--')
+    plt.xlim([0, 1])
+    plt.ylim([0, 1])
+    plt.legend()
+    plt.savefig('ROC_Curve_' + args.short_dataset_name, bbox_inches='tight', dpi=300)
