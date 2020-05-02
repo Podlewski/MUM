@@ -81,10 +81,17 @@ class Classifier:
             self.test_target_values,
             self.prediction), digits)
 
-    def get_roc_curve(self):
-        return metrics.roc_curve(
-            self.test_target_values,
-            self.prediction)
+    def get_roc_curve_plot(self):
+        roc_cure_plot = metrics.plot_roc_curve(
+            self.model,
+            self.test_data,
+            self.test_target_values)
+        
+        fpr = roc_cure_plot.fpr
+        tpr = roc_cure_plot.tpr
+        roc_auc = roc_cure_plot.roc_auc
+
+        return fpr, tpr, roc_auc
 
     def print_confusion_matrix(self):
         tn, fp, fn, tp = self.get_confusion_matrix().ravel()

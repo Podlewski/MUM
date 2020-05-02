@@ -48,18 +48,17 @@ else:
                    SVM(data, labels, fraction, class_args),
                    KNeighbors(data, labels, fraction, class_args),
                    NeuralNetwork(data, labels, fraction, class_args)]
-    
-    for classifier in classifiers:
 
+    fig, ax = plt.subplots()
+
+    for classifier in classifiers:
         classifier.train()
         classifier.test()
+        x, y, _ = classifier.get_roc_curve_plot()
+        ax.plot(x, y, label=classifier.name)
 
-        fpr, tpr, _ = classifier.get_roc_curve()
-
-        plt.plot(fpr, tpr, label=classifier.name)
-
-    plt.plot([0, 1], [0, 1], color='black', ls='--')
-    plt.xlim([0, 1])
-    plt.ylim([0, 1])
-    plt.legend()
-    plt.savefig('ROC_Curve_' + args.short_dataset_name, bbox_inches='tight', dpi=300)
+    ax.plot([0, 1], [0, 1], color='black', ls='--')
+    plt.xlim([-0.01, 1.01])
+    plt.ylim([-0.01, 1.01])
+    ax.legend()
+    fig.savefig('ROC_Curve_' + args.short_dataset_name, bbox_inches='tight', dpi=300)
