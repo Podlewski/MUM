@@ -8,8 +8,7 @@ from classifiers.decision_tree import DecisionTree
 from classifiers.k_neighbors import KNeighbors
 from classifiers.neural_network import NeuralNetwork
 from classifiers.svm import SVM
-from utils import factorize, load_dataset
-
+from utils import factorize, load_dataset, learning_curve_plot
 
 args = ArgumentParser().get_arguments()
 
@@ -42,6 +41,8 @@ if args.classifier is not 0:
     if args.time is True:
         print(f'\nTime:  {round((end - start)*1000, 2)} ms')
 
+    learning_curve_plot(classifier, 'learning_curve_' + args.short_dataset_name + '_' + classifier.short_name)
+
 else:
     classifiers = [DecisionTree(data, labels, fraction, class_args),
                    Bayes(data, labels, fraction, class_args),
@@ -62,3 +63,5 @@ else:
     plt.ylim([-0.01, 1.01])
     ax.legend()
     fig.savefig('ROC_Curve_' + args.short_dataset_name, bbox_inches='tight', dpi=300)
+
+    learning_curve_plot(classifiers, 'learning_curve_' + args.short_dataset_name)

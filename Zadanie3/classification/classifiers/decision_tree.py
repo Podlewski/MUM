@@ -11,6 +11,7 @@ class DecisionTree(Classifier):
     max_leaf_nodes = None
 
     name = "Decision trees algorithm"
+    short_name = "Tree"
 
     def __init__(self, data, labels, training_fraction, arguments):
         super().__init__(data, labels, training_fraction)

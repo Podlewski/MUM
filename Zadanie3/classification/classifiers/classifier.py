@@ -13,6 +13,7 @@ class Classifier:
     prediction = None
     labels = None
     name = None
+    short_name = None
 
     def __init__(self, data, labels, training_fraction):
         self.tt_ratio = training_fraction

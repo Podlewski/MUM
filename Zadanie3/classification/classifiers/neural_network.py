@@ -5,6 +5,7 @@ from classifiers.classifier import Classifier
 
 class NeuralNetwork(Classifier):
     name = "Artificial neural network algorithm"
+    short_name = "NN"
 
     def __init__(self, data, labels, training_fraction, arguments):
         super().__init__(data, labels, training_fraction)
