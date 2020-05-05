@@ -6,13 +6,13 @@ import pandas
 from matplotlib import pyplot
 from sklearn.model_selection import learning_curve
 
-datasets = { 
+datasets = {1: './datasets/dia_ranked_10min.csv',
             2: './datasets/weatherAUS.csv',
             3: './datasets/diabetes.csv'}
-datasets_names = {
+datasets_names = {1: 'League of Legends Diamond Ranked Games (10 min)',
                   2: 'Rain in Australia',
                   3: 'Pima Indians Diabetes Database'}
-short_datasets_names = {
+short_datasets_names = {1: 'Rankeds',
                         2: 'Rain',
                         3: 'Diabetes'}
 

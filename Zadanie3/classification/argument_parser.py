@@ -20,7 +20,7 @@ class ArgumentParser:
                         '\n  Piotr Wardęcki\t234128')
 
         self.parser.add_argument(metavar='DATASET', dest='dataset', type=int,
-                                 default=0, choices=range(2, 4),
+                                 default=0, choices=range(1, 4),
                                  help='Select data set:\n'+print_datasets_names())
 
         self.parser.add_argument('-c', metavar='CLASSIFIER', dest='classifier',
