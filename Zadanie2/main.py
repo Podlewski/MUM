@@ -1,5 +1,4 @@
 from matplotlib import pyplot
-
 from argument_parser import ArgumentParser
 from clusterers.agglomerative import Agglomerative
 from clusterers.density_based import DensityBased
@@ -8,6 +7,9 @@ from clusterers.k_means import Kmeans
 from clusterers.Optic_Clustering import optics
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from utils import clear, load_dataset, factorize
+from GAP import optimalK
+from sklearn.cluster import KMeans
+
 
 argument_parser = ArgumentParser()
 
@@ -93,6 +95,33 @@ else:
     
     filename = ("elbow_" + setup['simple_name']).replace(".", "")
     pyplot.savefig(filename, dpi=200, bbox_inches='tight')
-    
+
+    for n_cluster in range(2, 11):
+        x = data
+        kmeans = KMeans(n_clusters=n_cluster).fit(x)
+        label = kmeans.labels_
+        dawidek = davies_bouldin_score(x, label)
+        hrabaszcz = calinski_harabasz_score(x, label)
+        silchout = silhouette_score(x, label)
+        print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, silchout))
+        print("For n_clusters={}, hrabaszcz {}".format(n_cluster, hrabaszcz))
+        print("For n_clusters={}, dawidek {}".format(n_cluster, dawidek))
+
+    if argument_parser.is_GAP_method_run() is True:
+        x = data
+        k, gapdf = optimalK(x, nrefs=5, maxClusters=15)
+        print(f'Optymalny cluster:\t\t%0.4f' %k)
+        pyplot.close()
+        pyplot.plot(gapdf.clusterCount, gapdf.gap,'bx-', linewidth=3,)
+        pyplot.scatter(gapdf[gapdf.clusterCount == k].clusterCount, gapdf[gapdf.clusterCount == k].gap, s=250, c='r')
+        pyplot.grid(True)
+        pyplot.xlabel('Cluster Count')
+        pyplot.ylabel('Gap Value')
+        pyplot.title('Gap Values by Cluster Count')
+        pyplot.show()
+        filename = ("GAP_" + setup['simple_name']).replace(".", "")
+        pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+
     if argument_parser.is_plot_shown() is True:
         pyplot.show()

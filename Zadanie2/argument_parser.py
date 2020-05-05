@@ -58,8 +58,12 @@ class ArgumentParser:
 
         # another
         self.parser.add_argument('--elbow', dest='elbow', action='store_const',
-                                 const=True, default=False,
+                                 const=True, default=True,
                                  help='Runs Elbow Method on chosen dataset')
+
+        # another
+        self.parser.add_argument('--GAP', dest='GAP', action='store_const',
+                                 const=True, default=True)
 
         # parse
         self.args = self.parser.parse_args()
@@ -119,3 +123,6 @@ class ArgumentParser:
 
     def is_elbow_method_run(self):
         return self.args.elbow
+
+    def is_GAP_method_run(self):
+        return self.args.GAP
