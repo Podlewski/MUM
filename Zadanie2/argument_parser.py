@@ -63,7 +63,7 @@ class ArgumentParser:
 
         # another
         self.parser.add_argument('--GAP', dest='GAP', action='store_const',
-                                 const=True, default=True)
+                                 const=True, default=False)
 
         # parse
         self.args = self.parser.parse_args()

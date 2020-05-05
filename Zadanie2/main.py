@@ -95,8 +95,11 @@ else:
     
     filename = ("elbow_" + setup['simple_name']).replace(".", "")
     pyplot.savefig(filename, dpi=200, bbox_inches='tight')
-
-    for n_cluster in range(2, 11):
+    dawidekArray = []
+    hrabaszczArray = []
+    silchoutArray = []
+    clusters = range(2, 11)
+    for n_cluster in clusters:
         x = data
         kmeans = KMeans(n_clusters=n_cluster).fit(x)
         label = kmeans.labels_
@@ -104,13 +107,40 @@ else:
         hrabaszcz = calinski_harabasz_score(x, label)
         silchout = silhouette_score(x, label)
         print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, silchout))
+        silchoutArray.append(silchout)
         print("For n_clusters={}, hrabaszcz {}".format(n_cluster, hrabaszcz))
+        hrabaszczArray.append(hrabaszcz)
         print("For n_clusters={}, dawidek {}".format(n_cluster, dawidek))
+        dawidekArray.append(dawidek)
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(clusters, silchoutArray, 'bx-')
+    pyplot.xlabel('clusters')
+    pyplot.ylabel('silhouette')
+    filename = ("silhouette_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(clusters, hrabaszczArray, 'bx-')
+    pyplot.xlabel('clusters')
+    pyplot.ylabel('calinski_harabasz')
+    filename = ("calinski_harabasz_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(clusters, dawidekArray, 'bx-')
+    pyplot.xlabel('clusters')
+    pyplot.ylabel('davies_bouldin')
+    filename = ("davies_bouldin_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
 
     if argument_parser.is_GAP_method_run() is True:
         x = data
         k, gapdf = optimalK(x, nrefs=5, maxClusters=15)
         print(f'Optymalny cluster:\t\t%0.4f' %k)
+        pyplot.clf()
         pyplot.close()
         pyplot.plot(gapdf.clusterCount, gapdf.gap,'bx-', linewidth=3,)
         pyplot.scatter(gapdf[gapdf.clusterCount == k].clusterCount, gapdf[gapdf.clusterCount == k].gap, s=250, c='r')
