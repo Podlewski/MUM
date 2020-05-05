@@ -122,12 +122,10 @@ class Classifier:
         print(metrics_first_line)
         print(metrics_second_line)  
 
-    def print_stats(self, dataset_name, digits=3):
-        print(f'Dataset:           {dataset_name}')
-        print(f'Classificator:     {self.name}')
-        print(f'Training percent:  {self.tt_ratio * 100}%')
+    def print_stats(self, labels=False, digits=3):
 
-        print('\nLabels: ' + str(self.labels))
+        if labels is True:
+            print('\nLabels: ' + str(self.labels))
 
         self.print_confusion_matrix()
         self.print_metrics(digits)

@@ -32,6 +32,11 @@ def load_dataset(n):
     return pandas.read_csv(file).dropna()
 
 
+def print_basic_stats(dataset_name, training_percent):
+    print(f'Dataset:           {dataset_name}')
+    print(f'Training percent:  {training_percent}%')
+
+
 def print_datasets_names():
     result = ''
     for key in datasets_names:
