@@ -16,6 +16,25 @@ Zadanie polega na analizie procesu klasyfikacji danych za pomocą metod:
 4. Klasyfikator k-najbliższych sąsiadów
 5. Algorytm sztucznych sieci neuronowych
 
+## Zadanie 2
+
+Zadanie polega na analizie procesu grupowania danych za pomocą wybranych metod:
+
+1. Algorytm EM
+2. Algorytm k-średnich
+3. Algorytm hierarchicznie aglomeracyjny
+4. Metoda gęstościowa DBSCAN
+5. Równoległy algorytm grupowania aglomeracyjnego (OPTICS)
+
+## Zadanie 3
+
+Zadanie polega na ocenie jakości modeli klasyfikacyjnych oraz skupień za pomocą odpowiednich miar ewaluacyjnych:
+
+1. Wyznaczyć wartości w macierzy pomyłek oraz obliczyć wartości podstawowych metryk ewaluacyjnych: dokładność, precyzja, czułość, specyficzność dla każdego z modeli klasyfikacyjnych
+2. Wyznaczyć krzywe ROC dla wszystkich zaimplementowanych metod klasyfikacyjnych
+3. Wyznaczyć krzywe uczenia dla każdego z modeli klasyfikacyjnych
+4. Ocenić liczbę skupień zdefiniowaną za pomocą wybranych metod oraz jakość tak powstałych skupień za pomocą wybranych miar ewaluacyjnych wewnętrznych
+
 ---
 
 ## Task 1
