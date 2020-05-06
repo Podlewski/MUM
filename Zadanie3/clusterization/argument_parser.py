@@ -7,13 +7,17 @@ class ArgumentParser:
 
     def __init__(self):
         self.parser = argparse.ArgumentParser(
-            prog='MUM - Task 2', formatter_class=argparse.RawTextHelpFormatter,
-            description="Lodz University of Technology (TUL)"
-                        "\nMachine learning methods (Metody uczenia maszynowego)"
-                        "\n\nTask 2 - Problem set 2"
-                        "\n\nAuthors:\n  Paweł Galewicz\t234053"
-                        "\n  Bartosz Jurczewski\t234067\n  Zbigniew Nowacki\t234102"
-                        "\n  Karol Podlewski\t234106\n  Piotr Wardęcki\t234128")
+            prog='MUM - Task 3 - Clusterization',
+            formatter_class=argparse.RawTextHelpFormatter,
+            description='Lodz University of Technology (TUL)'
+                        '\nMachine learning methods (Metody uczenia maszynowego)'
+                        '\n\nTask 3 - Problem set 3 - Clusterization'
+                        '\n\nAuthors:'
+                        '\n  Paweł Galewicz\t234053'
+                        '\n  Bartosz Jurczewski\t234067'
+                        '\n  Zbigniew Nowacki\t234102'
+                        '\n  Karol Podlewski\t234106'
+                        '\n  Piotr Wardęcki\t234128')
 
         # data sets
         self.parser.add_argument('-d', metavar='N', dest='dataset', type=int,
@@ -60,6 +64,9 @@ class ArgumentParser:
         self.parser.add_argument('--elbow', dest='elbow', action='store_const',
                                  const=True, default=False,
                                  help='Runs Elbow Method on chosen dataset')
+
+        self.parser.add_argument('--GAP', dest='GAP', action='store_const',
+                                 const=True, default=False)
 
         # parse
         self.args = self.parser.parse_args()
@@ -119,3 +126,6 @@ class ArgumentParser:
 
     def is_elbow_method_run(self):
         return self.args.elbow
+
+    def is_GAP_method_run(self):
+        return self.args.GAP

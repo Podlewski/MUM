@@ -1,5 +1,4 @@
 from matplotlib import pyplot
-
 from argument_parser import ArgumentParser
 from clusterers.agglomerative import Agglomerative
 from clusterers.density_based import DensityBased
@@ -8,6 +7,9 @@ from clusterers.k_means import Kmeans
 from clusterers.Optic_Clustering import optics
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from utils import clear, load_dataset, factorize
+from gap import optimalK
+from sklearn.cluster import KMeans
+
 
 argument_parser = ArgumentParser()
 
@@ -19,7 +21,6 @@ setup = {
     "clusters": argument_parser.get_number_of_clusters(),
     "class_args": argument_parser.get_classifier_arguments()
 }
-# clear()
 
 if argument_parser.is_n_clusters_fixed() is True:
     setup['clusters'] = argument_parser.get_fixed_n_clusters()
@@ -93,6 +94,63 @@ else:
     
     filename = ("elbow_" + setup['simple_name']).replace(".", "")
     pyplot.savefig(filename, dpi=200, bbox_inches='tight')
-    
+    dawidekArray = []
+    hrabaszczArray = []
+    silchoutArray = []
+    clusters = range(2, 11)
+    for n_cluster in clusters:
+        x = data
+        kmeans = KMeans(n_clusters=n_cluster).fit(x)
+        label = kmeans.labels_
+        dawidek = davies_bouldin_score(x, label)
+        hrabaszcz = calinski_harabasz_score(x, label)
+        silchout = silhouette_score(x, label)
+        print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, silchout))
+        silchoutArray.append(silchout)
+        print("For n_clusters={}, hrabaszcz {}".format(n_cluster, hrabaszcz))
+        hrabaszczArray.append(hrabaszcz)
+        print("For n_clusters={}, dawidek {}".format(n_cluster, dawidek))
+        dawidekArray.append(dawidek)
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(clusters, silchoutArray, 'bx-')
+    pyplot.xlabel('clusters')
+    pyplot.ylabel('silhouette')
+    filename = ("silhouette_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(clusters, hrabaszczArray, 'bx-')
+    pyplot.xlabel('clusters')
+    pyplot.ylabel('calinski_harabasz')
+    filename = ("calinski_harabasz_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+    pyplot.clf()
+    pyplot.close()
+    pyplot.plot(clusters, dawidekArray, 'bx-')
+    pyplot.xlabel('clusters')
+    pyplot.ylabel('davies_bouldin')
+    filename = ("davies_bouldin_" + setup['simple_name']).replace(".", "")
+    pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+    if argument_parser.is_GAP_method_run() is True:
+        x = data
+        k, gapdf = optimalK(x, nrefs=5, maxClusters=15)
+        print(f'Optymalny cluster:\t\t%0.4f' %k)
+        pyplot.clf()
+        pyplot.close()
+        pyplot.plot(gapdf.clusterCount, gapdf.gap,'bx-', linewidth=3,)
+        pyplot.scatter(gapdf[gapdf.clusterCount == k].clusterCount, gapdf[gapdf.clusterCount == k].gap, s=250, c='r')
+        pyplot.grid(True)
+        pyplot.xlabel('Cluster Count')
+        pyplot.ylabel('Gap Value')
+        pyplot.title('Gap Values by Cluster Count')
+        pyplot.show()
+        filename = ("GAP_" + setup['simple_name']).replace(".", "")
+        pyplot.savefig(filename, dpi=200, bbox_inches='tight')
+
+
     if argument_parser.is_plot_shown() is True:
         pyplot.show()
