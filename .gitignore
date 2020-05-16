@@ -3,6 +3,9 @@
 
 !**/report/**/*.png
 
+NYPD_Complaint_Data_Historic.csv
+NYPD_Felony_Data.csv
+
 # Created by https://www.gitignore.io/api/python,intellij+iml
 # Edit at https://www.gitignore.io/?templates=python,intellij+iml
 
