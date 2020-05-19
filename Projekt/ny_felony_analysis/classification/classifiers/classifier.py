@@ -1,4 +1,5 @@
 import warnings
+from numpy import unique
 from sklearn import metrics
 
 
@@ -11,42 +12,26 @@ class Classifier:
     test_data = None
     test_target_values = None
     prediction = None
+    labels_column = None
     labels = None
     name = None
     short_name = None
 
-    def __init__(self, data, labels, training_fraction):
+    def __init__(self, data, labels, unique, training_fraction):
         self.tt_ratio = training_fraction
         self.data = data
-        self.label = 'R'
         self.labels = labels
+        self.unique_labels = unique
 
-    def __label__(self):
-        return {'L': [self.data.columns[0]],
-                'R': [self.data.columns[-1]]}[self.label]
-
-    def shuffle_and_assign_data(self):
-        self.data = self.data.sample(frac=1).reset_index(drop=True)
-        data_size = len(self.data.index)
-        self.training_data \
-            = self.data.loc[
-              :int(self.tt_ratio * data_size),
-              self.data.columns[~self.data.columns.isin(self.__label__())]].values
-        self.training_target_values \
-            = self.data.loc[
-              :int(self.tt_ratio * data_size),
-              self.data.columns[self.data.columns.isin(self.__label__())]].values.ravel()
-        self.test_data \
-            = self.data.loc[
-              int(self.tt_ratio * data_size) + 1:,
-              self.data.columns[~self.data.columns.isin(self.__label__())]].values
-        self.test_target_values \
-            = self.data.loc[
-              int(self.tt_ratio * data_size) + 1:,
-              self.data.columns[self.data.columns.isin(self.__label__())]].values.ravel()
+    def assign_data(self):
+        partition_index = int(len(self.data.index) * self.tt_ratio)
+        self.training_data = self.data.iloc[:partition_index].values
+        self.training_target_values = self.labels.iloc[:partition_index].values.ravel()
+        self.test_data = self.data.iloc[partition_index:].values
+        self.test_target_values = self.labels.iloc[partition_index:].values.ravel()
 
     def train(self):
-        self.shuffle_and_assign_data()
+        self.assign_data()
         self.model.fit(self.training_data,
                        self.training_target_values)
 
@@ -68,19 +53,19 @@ class Classifier:
         return metrics.classification_report(
             self.test_target_values,
             self.prediction,
-            target_names=list(map(str, self.labels)),
+            target_names=list(map(str, self.unique_labels)),
             digits=digits
         )
 
     def get_precision(self, digits):
         return round(metrics.precision_score(
             self.test_target_values,
-            self.prediction), digits)
+            self.prediction, average='micro'), digits)
 
     def get_recall(self, digits):
         return round(metrics.recall_score(
             self.test_target_values,
-            self.prediction), digits)
+            self.prediction, average='micro'), digits)
 
     def get_roc_curve_plot(self):
         roc_cure_plot = metrics.plot_roc_curve(
@@ -95,20 +80,20 @@ class Classifier:
         return fpr, tpr, roc_auc
 
     def print_confusion_matrix(self):
-        tn, fp, fn, tp = self.get_confusion_matrix().ravel()
+        # tn, fp, fn, tp = self.get_confusion_matrix().ravel()
 
         print('\nConfusion matrix:')
-        print('  ' + str(tp) + '\t' + str(fn))
-        print('  ' + str(fp) + '\t' + str(tn))
+        print(self.get_confusion_matrix())
+        # print('  ' + str(tp) + '\t' + str(fn))
+        # print('  ' + str(fp) + '\t' + str(tn))
 
     def print_metrics(self, digits):
-        tn, fp, fn, tp = self.get_confusion_matrix().ravel()
-
-        metrics_names = ['Precision', 'Accuracy', 'Recall', 'Specifity']
+        # tn, fp, fn, tp = self.get_confusion_matrix().ravel()
+        # metrics_names = ['Precision', 'Accuracy', 'Recall', 'Specifity']
+        metrics_names = ['Precision', 'Accuracy', 'Recall']
         metrics_scores = [self.get_precision(digits),
                           self.get_accuracy(digits),
-                          self.get_recall(digits),
-                          round((tn/(tn+fp)), digits)]
+                          self.get_recall(digits)]
 
         metrics_first_line = '  '
         metrics_second_line = '  '
@@ -127,5 +112,5 @@ class Classifier:
         if labels is True:
             print('\nLabels: ' + str(self.labels))
 
-        self.print_confusion_matrix()
+        # self.print_confusion_matrix()
         self.print_metrics(digits)

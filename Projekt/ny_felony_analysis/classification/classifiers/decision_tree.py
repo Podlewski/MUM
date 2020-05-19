@@ -13,6 +13,6 @@ class DecisionTree(Classifier):
     name = "Decision trees algorithm"
     short_name = "Tree"
 
-    def __init__(self, data, labels, training_fraction):
-        super().__init__(data, labels, training_fraction)
+    def __init__(self, data, labels, unique, training_fraction):
+        super().__init__(data, labels, unique, training_fraction)
         self.model = tree.DecisionTreeClassifier()
