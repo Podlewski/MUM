@@ -9,4 +9,4 @@ class SVM(Classifier):
 
     def __init__(self, data, labels, unique, training_fraction):
         super().__init__(data, labels, unique, training_fraction)
-        self.model = svm.SVC(max_iter=5000)
+        self.model = svm.LinearSVC(max_iter=5000)

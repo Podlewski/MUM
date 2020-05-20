@@ -60,12 +60,12 @@ class Classifier:
     def get_precision(self, digits):
         return round(metrics.precision_score(
             self.test_target_values,
-            self.prediction, average='micro'), digits)
+            self.prediction, average='macro'), digits)
 
     def get_recall(self, digits):
         return round(metrics.recall_score(
             self.test_target_values,
-            self.prediction, average='micro'), digits)
+            self.prediction, average='macro'), digits)
 
     def get_roc_curve_plot(self):
         roc_cure_plot = metrics.plot_roc_curve(
