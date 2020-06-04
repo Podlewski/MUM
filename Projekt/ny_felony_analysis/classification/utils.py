@@ -4,6 +4,7 @@ from os import system, name
 import numpy
 import pandas
 from matplotlib import pyplot
+from sklearn.decomposition import FastICA, PCA
 from sklearn.model_selection import learning_curve
 
 
@@ -14,8 +15,36 @@ def factorize(column):
         return pandas.factorize(column)[0]
 
 
-def print_basic_stats(training_percent):
-    print(f'Training percent:  {training_percent}%')
+def print_basic_stats(label, dropped_features, training_percent):
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print(f'Label feauture:     {label}')
+    print( 'Dropped feautures:  ', end = '')
+    print(', '.join(dropped_features))
+    print(f'Training percent:   {training_percent}%')
+
+
+def diminish_data(data, label_name, label_number, drops_names, drops_numbers):
+    if (label_name is None and label_number is None):
+        raise Exception('Label is not provided')
+    elif label_name is None:
+        label_name = data.columns[label_number]
+    if drops_numbers is not None:
+        if drops_names is not None:
+            drops_names.extend(data.columns[drops_numbers].tolist()) 
+        else:
+            drops_names = data.columns[drops_numbers]
+
+    labels = data[label_name]
+    if drops_names is not None:
+        data = data.drop(columns=drops_names)
+    data = data.drop(columns=[label_name])
+
+    if label_name == 'KY_CD':
+        data = data.drop(columns=['PD_CD'], errors='ignore')
+    elif label_name == 'PD_CD':
+        data = data.drop(columns=['KY_CD'], errors='ignore')
+
+    return data, labels, label_name, drops_names
 
 
 def learning_curve_add_subplot(classifier, ax):
@@ -56,3 +85,13 @@ def learning_curve_plot(classifier, title='pic'):
     ax[1].grid(alpha=0.2)
     fig.tight_layout()
     fig.savefig(title, bbox_inches='tight', dpi=300)
+
+def Ica(dataset):
+    ica = FastICA(n_components=2)
+    ds = ica.fit_transform(dataset)
+    return pandas.DataFrame(ds)
+
+def Pca(dataset):
+    pca = PCA(n_components=2)
+    ds = pca.fit_transform(dataset)
+    return pandas.DataFrame(ds)

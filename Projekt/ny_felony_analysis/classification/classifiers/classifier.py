@@ -107,10 +107,9 @@ class Classifier:
         print(metrics_first_line)
         print(metrics_second_line)  
 
-    def print_stats(self, labels=False, digits=3):
-
-        if labels is True:
-            print('\nLabels: ' + str(self.labels))
-
+    def print_stats(self, time=None, digits=3):
+        print('\n~~~~~~~~~~ ' + self.name) 
         # self.print_confusion_matrix()
         self.print_metrics(digits)
+        if time is not None:
+            print(f'\nTime:  {round(time, 2)} s')
