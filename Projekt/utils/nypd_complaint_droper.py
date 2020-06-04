@@ -17,3 +17,9 @@ df.drop(df[df['VIC_SEX'] == 'D'].index, inplace=True)
 df.drop(df[df['VIC_SEX'] == 'E'].index, inplace=True)
 
 df.to_csv('NYPD_Felony_Data.csv', encoding='utf-8', index=False)
+
+df.drop([df.columns[2],  df.columns[3],  df.columns[13], df.columns[14]],
+        axis='columns', inplace=True)
+df.dropna(inplace=True)
+
+df.to_csv('NYPD_Felony_Data_Fit.csv', encoding='utf-8', index=False)
