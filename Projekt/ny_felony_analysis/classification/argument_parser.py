@@ -17,26 +17,43 @@ class ArgumentParser:
                         '\n  Karol Podlewski\t234106'
                         '\n  Piotr Wardęcki\t234128')
 
-        self.parser.add_argument('-c', metavar='CLASSIFIER', dest='classifier',
-                                 type=int, default=0, choices=range(1, 6),
-                                 help='Use only one classifier:'
-                                      '\n  [1] - Decision trees algorithm'
-                                      '\n  [2] - Naive Bayes'
-                                      '\n  [3] - Support-vector machine'
-                                      '\n  [4] - k-nearest neighbors'
-                                      '\n  [5] - Artificial neural network')
+        self.parser.add_argument('-l', metavar='LABEL', dest='label',
+                                 type=str, default=None,
+                                 help='Specify feature label by name '
+                                      '(overwrites -ln)')
+
+        self.parser.add_argument('-ln', metavar='LABEL_NUMBER', dest='label_number',
+                                 type=int, default=None,
+                                 help='Specify feature label by number '
+                                      '(overwrited by -l)')
+
+        self.parser.add_argument('-d', metavar='D', dest='drops',
+                                 type=str, default=None, nargs='+',
+                                 help='Specify features to drop by name '
+                                      '(merges features from -dn)')
+
+        self.parser.add_argument('-dn', metavar='D', dest='drops_numbers',
+                                 default=None, type=int, nargs='+',
+                                 help='Specify features to drop by number '
+                                      '(merges features from -d)')
 
         self.parser.add_argument('-t', metavar='PERCENT', dest='training_percent',
                                  type=int, default=75, choices=range(1, 100),
                                  help='Set percent of training set')
 
-        self.parser.add_argument('-a', metavar='N', dest='class_args',
-                                 type=str, nargs='+', default=None,
-                                 help='Arguments of chosen classifier')
-
-        self.parser.add_argument('--time', dest='time', action='store_const',
+        self.parser.add_argument('-i', dest='ica', action='store_const',
                                  const=True, default=False,
-                                 help='Measure time of classification')
+                                 help='Reduce features with ICA algorithm'
+                                      '(do not work with -p')
+
+        self.parser.add_argument('-p', dest='pca', action='store_const',
+                                 const=True, default=False,
+                                 help='Reduce features with PCA algorithm'
+                                      '(do not work with -i')
+
+        self.parser.add_argument('--notime', dest='time', action='store_const',
+                                 const=False, default=True,
+                                 help='Do not measure time of classification')
 
         self.args = self.parser.parse_args()
 
