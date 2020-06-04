@@ -18,12 +18,15 @@ def factorize(column):
 def print_basic_stats(label, dropped_features, training_percent):
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print(f'Label feauture:     {label}')
-    print( 'Dropped feautures:  ', end = '')
-    print(', '.join(dropped_features))
+    if type(dropped_features) is list:
+        print( 'Dropped feautures:  ', end = '')
+        print(', '.join(dropped_features))
+    else:
+        print(f'Dropped feautures:  {dropped_features}')
     print(f'Training percent:   {training_percent}%')
 
 
-def diminish_data(data, label_name, label_number, drops_names, drops_numbers):
+def diminish_data(data, label_name, label_number, drops_names, drops_numbers, reduction):
     if (label_name is None and label_number is None):
         raise Exception('Label is not provided')
     elif label_name is None:
@@ -35,14 +38,22 @@ def diminish_data(data, label_name, label_number, drops_names, drops_numbers):
             drops_names = data.columns[drops_numbers]
 
     labels = data[label_name]
-    if drops_names is not None:
-        data = data.drop(columns=drops_names)
     data = data.drop(columns=[label_name])
+    
+    if reduction is "ica":
+        data = Ica(data)
+        drops_names = "ICA reduction"
+    elif reduction is "pca":
+        data = Pca(data)
+        drops_names = "PCA reduction"
+    else:
+        if drops_names is not None:
+            data = data.drop(columns=drops_names)
 
-    if label_name == 'KY_CD':
-        data = data.drop(columns=['PD_CD'], errors='ignore')
-    elif label_name == 'PD_CD':
-        data = data.drop(columns=['KY_CD'], errors='ignore')
+        if label_name == 'KY_CD':
+            data = data.drop(columns=['PD_CD'], errors='ignore')
+        elif label_name == 'PD_CD':
+            data = data.drop(columns=['KY_CD'], errors='ignore')
 
     return data, labels, label_name, drops_names
 

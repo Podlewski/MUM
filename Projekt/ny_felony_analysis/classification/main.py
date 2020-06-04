@@ -7,9 +7,7 @@ from argument_parser import ArgumentParser
 from classifiers.bayes import Bayes
 from classifiers.decision_tree import DecisionTree
 from classifiers.k_neighbors import KNeighbors
-from classifiers.neural_network import NeuralNetwork
-from classifiers.svm import SVM
-from utils import factorize, learning_curve_plot, print_basic_stats, Ica, Pca, diminish_data 
+from utils import factorize, learning_curve_plot, print_basic_stats, diminish_data 
 
 args = ArgumentParser().get_arguments()
 
@@ -17,7 +15,7 @@ data = pd.read_csv('../NYPD_Felony_Data_Fit.csv')
 data = data.apply(factorize)
 fraction = args.training_fraction
 
-diminished_data, labels, label_name, drops_name = diminish_data(data, args.label, args.label_number, args.drops, args.drops_numbers)
+diminished_data, labels, label_name, drops_name = diminish_data(data, args.label, args.label_number, args.drops, args.drops_numbers, args.reduction)
 unique_labels = unique(labels.values.ravel())
 
 print_basic_stats(label_name, drops_name, args.training_percent)

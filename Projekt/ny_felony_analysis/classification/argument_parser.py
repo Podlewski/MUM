@@ -41,15 +41,13 @@ class ArgumentParser:
                                  type=int, default=75, choices=range(1, 100),
                                  help='Set percent of training set')
 
-        self.parser.add_argument('-i', dest='ica', action='store_const',
-                                 const=True, default=False,
-                                 help='Reduce features with ICA algorithm'
-                                      '(do not work with -p')
+        self.parser.add_argument('-i', dest='reduction', action='store_const',
+                                 const="ica", default=None,
+                                 help='Reduce features with ICA algorithm')
 
-        self.parser.add_argument('-p', dest='pca', action='store_const',
-                                 const=True, default=False,
-                                 help='Reduce features with PCA algorithm'
-                                      '(do not work with -i')
+        self.parser.add_argument('-p', dest='reduction', action='store_const',
+                                 const="pca",
+                                 help='Reduce features with PCA algorithm')
 
         self.parser.add_argument('--notime', dest='time', action='store_const',
                                  const=False, default=True,
