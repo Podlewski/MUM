@@ -49,7 +49,6 @@ class Classifier:
             self.prediction)    
 
     def get_metrics(self, digits):
-        warnings.filterwarnings('ignore')
         return metrics.classification_report(
             self.test_target_values,
             self.prediction,
@@ -88,6 +87,7 @@ class Classifier:
         # print('  ' + str(fp) + '\t' + str(tn))
 
     def print_metrics(self, digits):
+        warnings.filterwarnings('ignore')
         # tn, fp, fn, tp = self.get_confusion_matrix().ravel()
         # metrics_names = ['Precision', 'Accuracy', 'Recall', 'Specifity']
         metrics_names = ['Precision', 'Accuracy', 'Recall']
