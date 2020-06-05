@@ -7,6 +7,7 @@ from argument_parser import ArgumentParser
 from classifiers.bayes import Bayes
 from classifiers.decision_tree import DecisionTree
 from classifiers.k_neighbors import KNeighbors
+from classifiers.stacking import Stacking
 from utils import factorize, learning_curve_plot, print_basic_stats, diminish_data 
 
 args = ArgumentParser().get_arguments()
@@ -21,8 +22,9 @@ unique_labels = unique(labels.values.ravel())
 print_basic_stats(label_name, drops_name, args.training_percent)
 
 classifiers = [DecisionTree(diminished_data, labels, unique, fraction),
-                Bayes(diminished_data, labels, unique, fraction),
-                KNeighbors(diminished_data, labels, unique, fraction)]
+               Bayes(diminished_data, labels, unique, fraction),
+               KNeighbors(diminished_data, labels, unique, fraction),
+               Stacking(diminished_data, labels, unique, fraction)]
 
 fig, ax = plt.subplots()
 
