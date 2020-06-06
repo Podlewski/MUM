@@ -41,17 +41,29 @@ class ArgumentParser:
                                  type=int, default=75, choices=range(1, 100),
                                  help='Set percent of training set')
 
-        self.parser.add_argument('-i', dest='reduction', action='store_const',
-                                 const="ica", default=None,
+        self.parser.add_argument('-i', dest='reduction', 
+                                 action='store_const', const="ica", default=None,
                                  help='Reduce features with ICA algorithm')
 
-        self.parser.add_argument('-p', dest='reduction', action='store_const',
-                                 const="pca",
-                                 help='Reduce features with PCA algorithm')
+        self.parser.add_argument('-p', dest='reduction', 
+                                 action='store_const', const="pca",
+                                 help='Reduce features with PCA algorithm') 
 
-        self.parser.add_argument('--notime', dest='time', action='store_const',
-                                 const=False, default=True,
-                                 help='Do not measure time of classification')
+        self.parser.add_argument('-s', '--stack', dest='stacking_classifier', 
+                                 action='store_const', const=True, default=False,
+                                 help='Run program with stacking classifier')
+
+        self.parser.add_argument('--time', dest='time', 
+                                 action='store_const', const=True, default=False,
+                                 help='Measure time of classification')
+
+        self.parser.add_argument('-rp', '--roc', dest='roc_curve', 
+                                 action='store_const', const=True, default=False,
+                                 help='Create ROC curve plot')
+
+        self.parser.add_argument('-lp', '--learn', dest='learning_curve', 
+                                 action='store_const', const=True, default=False,
+                                 help='Create learning curve plot')
 
         self.args = self.parser.parse_args()
 

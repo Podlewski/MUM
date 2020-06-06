@@ -6,6 +6,7 @@ import pandas
 from matplotlib import pyplot
 from sklearn.decomposition import FastICA, PCA
 from sklearn.model_selection import learning_curve
+from sklearn.preprocessing import StandardScaler
 
 
 def factorize(column):
@@ -14,6 +15,52 @@ def factorize(column):
     else:
         return pandas.factorize(column)[0]
 
+def normalize(dataset):
+    ds = dataset.values
+    ds = StandardScaler().fit_transform(ds)
+    return ds
+
+def ica_reduction(dataset):
+    ica = FastICA(n_components=2)
+    ds = ica.fit_transform(dataset)
+    return pandas.DataFrame(ds)
+
+def pca_reduction(dataset):
+    pca = PCA(n_components=2)
+    ds = pca.fit_transform(dataset)
+    return pandas.DataFrame(ds)
+
+def prepare_data(data, label_name, label_number, drops_names, drops_numbers, reduction):
+    if (label_name is None and label_number is None):
+        raise Exception('Label is not provided')
+    elif label_name is None:
+        label_name = data.columns[label_number]
+
+    labels = data[label_name]
+    data = data.drop(columns=[label_name])
+    
+    if reduction == "ica":
+        data = ica_reduction(normalize(data))
+        drops_names = "ICA reduction"
+    elif reduction == "pca":
+        data = pca_reduction(normalize(data))
+        drops_names = "PCA reduction"
+    else:
+        if drops_numbers is not None:
+            if drops_names is not None:
+                drops_names.extend(data.columns[drops_numbers].tolist()) 
+            else:
+                drops_names = data.columns[drops_numbers]
+
+        if drops_names is not None:
+            data = data.drop(columns=drops_names)
+
+        if label_name == 'KY_CD':
+            data = data.drop(columns=['PD_CD'], errors='ignore')
+        elif label_name == 'PD_CD':
+            data = data.drop(columns=['KY_CD'], errors='ignore')
+
+    return data, labels, label_name, drops_names
 
 def print_basic_stats(label, dropped_features, training_percent):
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
@@ -25,38 +72,8 @@ def print_basic_stats(label, dropped_features, training_percent):
         print(f'Dropped feautures:  {dropped_features}')
     print(f'Training percent:   {training_percent}%')
 
-
-def diminish_data(data, label_name, label_number, drops_names, drops_numbers, reduction):
-    if (label_name is None and label_number is None):
-        raise Exception('Label is not provided')
-    elif label_name is None:
-        label_name = data.columns[label_number]
-    if drops_numbers is not None:
-        if drops_names is not None:
-            drops_names.extend(data.columns[drops_numbers].tolist()) 
-        else:
-            drops_names = data.columns[drops_numbers]
-
-    labels = data[label_name]
-    data = data.drop(columns=[label_name])
-    
-    if reduction is "ica":
-        data = Ica(data)
-        drops_names = "ICA reduction"
-    elif reduction is "pca":
-        data = Pca(data)
-        drops_names = "PCA reduction"
-    else:
-        if drops_names is not None:
-            data = data.drop(columns=drops_names)
-
-        if label_name == 'KY_CD':
-            data = data.drop(columns=['PD_CD'], errors='ignore')
-        elif label_name == 'PD_CD':
-            data = data.drop(columns=['KY_CD'], errors='ignore')
-
-    return data, labels, label_name, drops_names
-
+def print_time(start_time, end_time):
+    print(f'\nTime:  {round(end_time - start_time, 2)}s')
 
 def learning_curve_add_subplot(classifier, ax):
     train_sizes, train_scores, test_scores = learning_curve(
@@ -90,19 +107,9 @@ def learning_curve_plot(classifier, title='pic'):
     ax[1].set_xlabel('Train size')
     ax[0].set_ylabel('Score')
     ax[1].tick_params(length=0)
-    # ax[0].legend(prop={'size': 7})
     ax[1].legend()
     ax[0].grid(alpha=0.2)
     ax[1].grid(alpha=0.2)
     fig.tight_layout()
     fig.savefig(title, bbox_inches='tight', dpi=300)
 
-def Ica(dataset):
-    ica = FastICA(n_components=2)
-    ds = ica.fit_transform(dataset)
-    return pandas.DataFrame(ds)
-
-def Pca(dataset):
-    pca = PCA(n_components=2)
-    ds = pca.fit_transform(dataset)
-    return pandas.DataFrame(ds)
