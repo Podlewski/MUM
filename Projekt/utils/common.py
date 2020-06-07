@@ -4,12 +4,26 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 
+LABEL_UNIQUES = {}
+
+
+def drop_infrequent(df, column=None, min_appearances=10):
+    if column is not None:
+        return df[df.groupby(column)[column].transform('count').ge(min_appearances)]
+    else:
+        result = df
+        for column in result.columns:
+            result = result[result.groupby(column)[column].transform('count').ge(min_appearances)]
+        return result
+
 
 def factorize(column):
     if column.dtype in [numpy.float64, numpy.float32, numpy.int32, numpy.int64]:
         return column
     else:
-        return pandas.factorize(column)[0]
+        codes, uniques = pandas.factorize(column)
+        LABEL_UNIQUES[column.name] = uniques
+        return codes
     # return pandas.factorize(column)[0].astype('int32')  # less memory, different results
 
 
@@ -45,6 +59,7 @@ def correlate_sort(df):
     return df.reset_index(drop=True)
 
 
+# region impute
 def impute_mean(df, inplace=False):
     return df.fillna(df.mean(), inplace=inplace)
 
@@ -68,13 +83,16 @@ def impute_regression(df):
     return mean_filled
 
 
-def get_linear_regression_values(x, y):
-    regression_model = LinearRegression()
-    regression_model.fit(x, y)
-    return regression_model.predict(x)
-
-
 pandas.DataFrame.impute_mean = impute_mean
 pandas.DataFrame.impute_interpolation = impute_interpolation
 pandas.DataFrame.impute_hotdeck = impute_hotdeck
 pandas.DataFrame.impute_regression = impute_regression
+
+
+# endregion impute
+
+
+def get_linear_regression_values(x, y):
+    regression_model = LinearRegression()
+    regression_model.fit(x, y)
+    return regression_model.predict(x)

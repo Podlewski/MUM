@@ -30,7 +30,7 @@ class ArgumentParser:
                                  type=int, default=75, choices=range(1, 100),
                                  help='Set percent of training set')
 
-        self.parser.add_argument('-a', metavar='N', dest='class_args',
+        self.parser.add_argument('-legend_entry', metavar='N', dest='class_args',
                                  type=str, nargs='+', default=None,
                                  help='Arguments of chosen classifier')
 
