@@ -1,6 +1,6 @@
 from sklearn.mixture import GaussianMixture
 
-from ny_felony_analysis.clasterization.clusterers.clusterer import Clusterer
+from ny_felony_analysis.clusterization.clusterers.clusterer import Clusterer
 
 covariance_type = {0: "full", 1: "tied", 2: "diag", 3: "spherical"}
 

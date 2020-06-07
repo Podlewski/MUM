@@ -24,13 +24,25 @@ def normalize(df):
     #     scaler.partial_fit(partial_df)
     #     index += partial_size
     # return scaler.transform(df)  # how to batch .transform() ?
-    return StandardScaler().fit_transform(df.values)
+    return pandas.DataFrame(
+        StandardScaler().fit_transform(df.values),
+        columns=df.columns
+    )
 
 
-def pca(dataset, n_components=2):
+def pca(df, n_components=2):
     pca_ = PCA(n_components=n_components)
-    data = pca_.fit_transform(dataset)
+    data = pca_.fit_transform(df)
     return pandas.DataFrame(data)
+
+
+def correlate_sort(df):
+    df = df.corr()
+    df = df.mask(numpy.tril(numpy.ones(df.shape)).astype(numpy.bool))
+    df = df.stack().reset_index()
+    df = df.rename(columns={0: 'corr'})
+    df = df.sort_values('corr', ascending=False)
+    return df.reset_index(drop=True)
 
 
 def impute_mean(df, inplace=False):

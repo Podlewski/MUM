@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
 
-from ny_felony_analysis.clasterization.clusterers.clusterer import Clusterer
+from ny_felony_analysis.clusterization.clusterers.clusterer import Clusterer
 
 
 class Kmeans(Clusterer, KMeans):

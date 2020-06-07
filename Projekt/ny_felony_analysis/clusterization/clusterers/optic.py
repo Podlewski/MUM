@@ -1,6 +1,6 @@
 from sklearn.cluster import OPTICS
 
-from ny_felony_analysis.clasterization.clusterers.clusterer import Clusterer
+from ny_felony_analysis.clusterization.clusterers.clusterer import Clusterer
 
 
 class Optic(Clusterer, OPTICS):
