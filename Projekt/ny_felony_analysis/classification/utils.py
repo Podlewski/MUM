@@ -31,15 +31,14 @@ def pca_reduction(dataset):
     return pandas.DataFrame(ds)
 
 def prepare_data(data, label_name, label_number, drops_names, drops_numbers, reduction):
+    drops_names = []
+    
     if (label_name is None and label_number is None):
         raise Exception('Label is not provided')
     elif label_name is None:
         label_name = data.columns[label_number]
-    if drops_numbers is not None:
-        if drops_names is not None:
-            drops_names.extend(data.columns[drops_numbers].tolist()) 
-        else:
-            drops_names = (data.columns[drops_numbers].values).tolist()
+    if drops_numbers:
+        drops_names.extend(data.columns[drops_numbers].tolist()) 
 
     labels = data[label_name]
     data = data.drop(columns=[label_name])
@@ -51,12 +50,24 @@ def prepare_data(data, label_name, label_number, drops_names, drops_numbers, red
         data = pca_reduction(normalize(data))
         drops_names = "PCA reduction"
     else:
-        if drops_names is not None:
+        if drops_names:
             data = data.drop(columns=drops_names)
-        if label_name == 'KY_CD':
+        
+        if label_name == 'ADDR_PCT_CD':
+            data = data.drop(columns=['BORO_NM'], errors='ignore')
+            drops_names.append('BORO_NM')
+        elif label_name == 'BORO_NM':
+            data = data.drop(columns=['ADDR_PCT_CD'], errors='ignore')
+            drops_names.append('ADDR_PCT_CD')
+        elif label_name == 'KY_CD':
             data = data.drop(columns=['PD_CD'], errors='ignore')
+            drops_names.append('PD_CD')
         elif label_name == 'PD_CD':
             data = data.drop(columns=['KY_CD'], errors='ignore')
+            drops_names.append('KY_CD')
+        
+        if not drops_names:
+            drops_names = None
 
     return data, labels, label_name, drops_names
 
