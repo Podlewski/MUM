@@ -55,11 +55,11 @@ class ArgumentParser:
 
         self.parser.add_argument('-bg', '--bagging', dest='bagging_classifier',
                                  action='store_const', const=True, default=False,
-                                 help='Run program with bagging classifier')
+                                 help='Run program with decision tree bagging classifier')
 
         self.parser.add_argument('-bt', '--boosting', dest='boosting_classifier',
                                  action='store_const', const=True, default=False,
-                                 help='Run program with boosting classifier')
+                                 help='Run program with gradient boosting classifier')
 
         self.parser.add_argument('--time', dest='time', 
                                  action='store_const', const=True, default=False,
