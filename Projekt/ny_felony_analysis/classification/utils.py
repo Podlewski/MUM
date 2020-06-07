@@ -35,6 +35,11 @@ def prepare_data(data, label_name, label_number, drops_names, drops_numbers, red
         raise Exception('Label is not provided')
     elif label_name is None:
         label_name = data.columns[label_number]
+    if drops_numbers is not None:
+        if drops_names is not None:
+            drops_names.extend(data.columns[drops_numbers].tolist()) 
+        else:
+            drops_names = (data.columns[drops_numbers].values).tolist()
 
     labels = data[label_name]
     data = data.drop(columns=[label_name])
@@ -46,15 +51,8 @@ def prepare_data(data, label_name, label_number, drops_names, drops_numbers, red
         data = pca_reduction(normalize(data))
         drops_names = "PCA reduction"
     else:
-        if drops_numbers is not None:
-            if drops_names is not None:
-                drops_names.extend(data.columns[drops_numbers].tolist()) 
-            else:
-                drops_names = data.columns[drops_numbers]
-
         if drops_names is not None:
             data = data.drop(columns=drops_names)
-
         if label_name == 'KY_CD':
             data = data.drop(columns=['PD_CD'], errors='ignore')
         elif label_name == 'PD_CD':
@@ -65,9 +63,9 @@ def prepare_data(data, label_name, label_number, drops_names, drops_numbers, red
 def print_basic_stats(label, dropped_features, training_percent):
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print(f'Label feauture:     {label}')
-    if type(dropped_features) is list:
+    if isinstance(dropped_features, list):
         print( 'Dropped feautures:  ', end = '')
-        print(', '.join(dropped_features))
+        print(', '.join(dropped_features)) 
     else:
         print(f'Dropped feautures:  {dropped_features}')
     print(f'Training percent:   {training_percent}%')
