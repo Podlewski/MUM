@@ -11,7 +11,7 @@ For ($i = 0; $i -lt $label.Length; $i++)
 $label = @(3, 4, 8, 9, 10, 11, 12, 13)
 For ($i = 0; $i -lt $label.Length; $i++)
 {
-    python ./main.py -ln $label[$i] -dn 5 -s --time >> $FilePath
+    python ./main.py -ln $label[$i] -dn 2 5  -s --time >> $FilePath
 }
 
 $label = @(5, 8, 9, 10, 11, 12, 13)
