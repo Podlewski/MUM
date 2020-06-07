@@ -1,4 +1,4 @@
-$FilePath = "classification_boosting.txt"
+$FilePath = "classification_bagging.txt"
 
 $label = @(3, 4, 5, 8, 9, 10, 11, 12, 13)
 For ($i = 0; $i -lt $label.Length; $i++)
