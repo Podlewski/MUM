@@ -57,6 +57,10 @@ class ArgumentParser:
                                  action='store_const', const=True, default=False,
                                  help='Run program with bagging classifier')
 
+        self.parser.add_argument('-bt', '--boosting', dest='boosting_classifier',
+                                 action='store_const', const=True, default=False,
+                                 help='Run program with boosting classifier')
+
         self.parser.add_argument('--time', dest='time', 
                                  action='store_const', const=True, default=False,
                                  help='Measure time of classification')
