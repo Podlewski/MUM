@@ -8,6 +8,7 @@ from classifiers.bayes import Bayes
 from classifiers.decision_tree import DecisionTree
 from classifiers.k_neighbors import KNeighbors
 from classifiers.stacking import Stacking
+from classifiers.bagging import Bagging
 from utils import factorize, learning_curve_plot, print_basic_stats, prepare_data, print_time
 
 args = ArgumentParser().get_arguments()
@@ -27,6 +28,9 @@ classifiers = [DecisionTree(diminished_data, labels, unique, fraction),
 
 if args.stacking_classifier is True:
     classifiers.append(Stacking(diminished_data, labels, unique, fraction))
+
+if args.bagging_classifier is True:
+    classifiers.append(Bagging(diminished_data, labels, unique, fraction))
 
 fig, ax = plt.subplots()
 
@@ -49,7 +53,7 @@ if args.roc_curve is True:
     plt.xlim([-0.01, 1.01])
     plt.ylim([-0.01, 1.01])
     ax.legend()
-    fig.savefig(feature_name + '_ROC_Curve', bbox_inches='tight', dpi=300)
+    fig.savefig('feature_name' + '_ROC_Curve', bbox_inches='tight', dpi=300)
 
 if args.learning_curve is True:
-    learning_curve_plot(classifiers, feature_name + '_learning_curve')
+    learning_curve_plot(classifiers, 'feature_name' + '_learning_curve')
