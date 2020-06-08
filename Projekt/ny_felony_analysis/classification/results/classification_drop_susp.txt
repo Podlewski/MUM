@@ -19,6 +19,14 @@ Precision   Accuracy   Recall   Time
 Precision   Accuracy   Recall   Time
 0.122       0.317      0.104    122.18s
 
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.18        0.399      0.134    98.98s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.087       0.331      0.063    44.17s
+
 
 ~~~~~~~~~~~~~~~~~~~~
 Label feauture:     PD_CD
@@ -38,6 +46,14 @@ Precision   Accuracy   Recall   Time
 ~~~~~~~~~~ Stacking classifier
 Precision   Accuracy   Recall   Time
 0.039       0.222      0.032    1109.39s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.053       0.244      0.046    113.97s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.031       0.272      0.042  710.0s
 
 
 ~~~~~~~~~~~~~~~~~~~~
@@ -60,6 +76,14 @@ Precision   Accuracy   Recall   Time
 Precision   Accuracy   Recall   Time
 0.305       0.347      0.294    62.55s
 
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.364       0.399      0.34     60.13s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.306       0.355      0.228    7.43s
+ 
 
 ~~~~~~~~~~~~~~~~~~~~
 Label feauture:     VIC_AGE_GROUP
@@ -79,6 +103,14 @@ Precision   Accuracy   Recall   Time
 ~~~~~~~~~~ Stacking classifier
 Precision   Accuracy   Recall   Time
 0.14        0.395      0.128    127.19s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.175       0.447      0.146    112.64s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.07        0.469      0.051    56.86s
 
 
 ~~~~~~~~~~~~~~~~~~~~
@@ -100,6 +132,14 @@ Precision   Accuracy   Recall   Time
 Precision   Accuracy   Recall   Time
 0.3         0.43       0.287    66.18s
 
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.381       0.517      0.339    70.38s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.353       0.423      0.2      11.52s
+
 
 ~~~~~~~~~~~~~~~~~~~~
 Label feauture:     VIC_SEX
@@ -119,3 +159,11 @@ Precision   Accuracy   Recall   Time
 ~~~~~~~~~~ Stacking classifier
 Precision   Accuracy   Recall   Time
 0.631       0.64       0.628    37.67s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.675       0.683      0.671    61.67s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.287       0.574      0.5      1.51s

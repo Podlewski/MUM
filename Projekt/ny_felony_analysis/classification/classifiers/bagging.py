@@ -13,6 +13,6 @@ class Bagging(Classifier):
         super().__init__(data, labels, unique, training_fraction)
         self.model = BaggingClassifier(
             base_estimator=tree.DecisionTreeClassifier(),
-            n_estimators=20,
-            random_state=1,
-            n_jobs= -1)
+            n_jobs=-1, # -1 means using all processors, set to None for tests
+            n_estimators=150, # 20 is ok, more than 100 is better
+            )
