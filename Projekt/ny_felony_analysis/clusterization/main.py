@@ -25,6 +25,13 @@ data = data.apply(factorize)
 data_norm = normalize(data)
 data_pca = pca(data_norm, n_components=3)
 
+susp_info = pca(data_norm[['SUSP_SEX', 'SUSP_RACE', 'SUSP_AGE_GROUP']], n_components=1)
+misc_info = pca(data_norm[['PREM_TYP_DESC', 'VIC_RACE', 'PD_CD']], n_components=1)
+
+data_chosen_pca = pandas.DataFrame()
+data_chosen_pca['SUSP_INFO'] = susp_info[0]
+data_chosen_pca['VIC_INFO'] = data_norm['VIC_RACE']
+
 plot_clustermap(
     data_norm.drop(columns=['Longitude', 'Latitude'])
              .sample(n=13_000, random_state=666),
@@ -46,7 +53,7 @@ print(correlate_sort(data, 0.2).to_string())
 plot_regression(
     data.sample(n=13_000, random_state=666),
     x='SUSP_RACE', y='SUSP_AGE_GROUP',
-    hue='SUSP_SEX',
+    col='SUSP_SEX',
     x_estimator=numpy.mean,
     # lowess=True,
     bottom=0.4, left=0.15
@@ -59,12 +66,19 @@ pyplot.savefig(
 pyplot.close()
 
 clusterer = Kmeans(
-    data_pca,
+    data_chosen_pca,
     3,
     [-1, -1, -1]
 )
 
 data_labels = clusterer.fit_predict()
+
+data['cluster'] = data_labels
+clustered_data = data.groupby(['cluster'])
+for name, cluster in clustered_data:
+    print(name)
+    print(cluster['KY_CD'].value_counts().T)
+    print("\n")
 
 pyplot.scatter(
     x=data_pca.iloc[:, 0],
