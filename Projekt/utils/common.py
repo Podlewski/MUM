@@ -7,6 +7,17 @@ from sklearn.preprocessing import StandardScaler
 LABEL_UNIQUES = {}
 
 
+def add_ax_margins(ax, x=0.05, y=0.05):
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+
+    xmargin = x * (xlim[1] - xlim[0])
+    ymargin = y * (ylim[1] - ylim[0])
+
+    ax.set_xlim(xlim[0] - xmargin, xlim[1] + xmargin)
+    ax.set_ylim(ylim[0] - ymargin, ylim[1] + ymargin)
+
+
 def drop_infrequent(df, column=None, min_appearances=10):
     if column is not None:
         return df[df.groupby(column)[column].transform('count').ge(min_appearances)]
@@ -50,12 +61,14 @@ def pca(df, n_components=2):
     return pandas.DataFrame(data)
 
 
-def correlate_sort(df):
+def correlate_sort(df, limit: float = None):
     df = df.corr()
     df = df.mask(numpy.tril(numpy.ones(df.shape)).astype(numpy.bool))
     df = df.stack().reset_index()
     df = df.rename(columns={0: 'corr'})
     df = df.sort_values('corr', ascending=False)
+    if limit is not None:
+        df = df[df['corr'] >= limit]
     return df.reset_index(drop=True)
 
 

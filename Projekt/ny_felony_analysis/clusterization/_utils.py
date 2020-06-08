@@ -1,6 +1,8 @@
 from pandas import DataFrame
 import seaborn
 
+from utils.common import add_ax_margins, LABEL_UNIQUES
+
 
 def plot_clustermap(df: DataFrame, metric='euclidean', method='average',
                     standard_scale=None, z_score=None,
@@ -18,9 +20,7 @@ def plot_clustermap(df: DataFrame, metric='euclidean', method='average',
 def plot_regression(df: DataFrame, x: str, y: str,
                     hue: str = None, col: str = None, row: str = None,
                     x_estimator=None, lowess: bool = False, jitter: float = .03,
-                    xticklabels=None, yticklabels=None, hticklabels=None,
                     bottom=None, left=None):
-    seaborn.set(color_codes=True)
     regression = seaborn.lmplot(
         data=df,
         x=x, y=y,
@@ -29,17 +29,18 @@ def plot_regression(df: DataFrame, x: str, y: str,
         x_estimator=x_estimator,
         lowess=lowess,
         x_jitter=jitter, y_jitter=jitter,
-        scatter_kws={'alpha': 0.7}
+        scatter_kws={'alpha': 0.6}
     ).set_xticklabels(rotation=40, ha='right')\
      .set_yticklabels(rotation=40)
-    if xticklabels is not None:
-        regression.set_xticklabels(xticklabels)
-        regression.set(xticks=range(len(xticklabels)))
-    if yticklabels is not None:
-        regression.set_yticklabels(yticklabels)
-        regression.set(yticks=range(len(yticklabels)))
-    if hue is not None and hticklabels is not None:
-        for legend_entry, label in zip(regression._legend.texts, hticklabels):
+    if x in LABEL_UNIQUES:
+        regression.set_xticklabels(LABEL_UNIQUES[x])
+        regression.set(xticks=range(len(LABEL_UNIQUES[x])))
+    if y in LABEL_UNIQUES:
+        regression.set_yticklabels(LABEL_UNIQUES[y])
+        regression.set(yticks=range(len(LABEL_UNIQUES[y])))
+    if hue is not None and hue in LABEL_UNIQUES:
+        for legend_entry, label in zip(regression._legend.texts, LABEL_UNIQUES[hue]):
             legend_entry.set_text(label)
     regression.fig.subplots_adjust(bottom=bottom, left=left)
+    add_ax_margins(regression.ax)
     return regression
