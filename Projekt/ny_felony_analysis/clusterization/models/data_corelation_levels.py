@@ -4,7 +4,7 @@ import seaborn
 from matplotlib import pyplot
 
 from ny_felony_analysis.clusterization._utils import plot_regression
-from utils.common import factorize, correlate_sort, drop_infrequent
+from utils.common import factorize, correlate_sort, drop_infrequent, normalize
 
 seaborn.set(color_codes=True)
 
@@ -15,32 +15,62 @@ data = data.drop(
 )
 data = data.dropna()
 data = drop_infrequent(data)
-data = data.apply(factorize)
-print(correlate_sort(data, 0.2).to_string())
+data_factorized = data.apply(factorize)
+data_norm = normalize(data_factorized)
+
+print("Mode and mean of violation code grouped by suspect race:")
+for name, cluster in data_norm.groupby(['SUSP_RACE']):
+    print("CLUSTER_" + str(name))
+    print("mean: " + str(cluster['PD_CD'].mean()))
+    print("mode: " + str(cluster['PD_CD'].mode()))
+    print("\n")
+
+print("Mode and mean of violation code grouped by victim race:")
+for name, cluster in data_norm.groupby(['VIC_RACE']):
+    print("CLUSTER_" + str(name))
+    print("mean: " + str(cluster['PD_CD'].mean()))
+    print("mode: " + str(cluster['PD_CD'].mode()))
+    print("\n")
+
+print("Most common races of victims grouped by suspect races:")
+for name, cluster in data.groupby(['SUSP_RACE']):
+    print(name)
+    print(cluster['VIC_RACE'].value_counts(normalize=True).head(3))
+    print("\n")
+
+print("Most common races of suspects grouped by victim races:")
+for name, cluster in data.groupby(['SUSP_RACE']):
+    print(name)
+    print(cluster['VIC_RACE'].value_counts(normalize=True).head(3))
+    print("\n")
 
 plot_regression(
-    data.sample(n=13_000, random_state=666),
-    x='SUSP_RACE', y='VIC_RACE',
+    data_factorized,
+    x='SUSP_RACE',
+    y='VIC_RACE',
     x_estimator=numpy.mean,
+    fit_reg=False,
     # lowess=True,
     bottom=0.4, left=0.15
 )
 pyplot.savefig(
-    'regression_susp_race_to_vic_race',
+    'suspect_on_victim_race',
     dpi=300,
     bbox_inches='tight'
 )
 pyplot.close()
 
 plot_regression(
-    data.sample(n=13_000, random_state=666),
-    x='PD_CD', y='SUSP_AGE_GROUP',
+    data_factorized,
+    x='VIC_RACE',
+    y='SUSP_RACE',
     x_estimator=numpy.mean,
+    fit_reg=False,
     # lowess=True,
     bottom=0.4, left=0.15
 )
 pyplot.savefig(
-    'regression_susp_pd_to_susp_age_race',
+    'victim_on_suspect_race',
     dpi=300,
     bbox_inches='tight'
 )
