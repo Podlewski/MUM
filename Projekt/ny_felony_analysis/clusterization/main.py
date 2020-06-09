@@ -2,6 +2,7 @@ import numpy
 import pandas
 import seaborn
 from matplotlib import pyplot
+from sklearn.cluster import AgglomerativeClustering
 
 from ny_felony_analysis.clusterization._utils import plot_clustermap, plot_regression
 from ny_felony_analysis.clusterization.clusterers.agglomerative import Agglomerative
@@ -21,68 +22,33 @@ data = data.drop(
 )
 data = data.dropna()
 data = drop_infrequent(data)
-data = data.apply(factorize)
-data_norm = normalize(data)
-data_pca = pca(data_norm, n_components=3)
+data_factor = data.apply(factorize)
+data_norm = normalize(data_factor)
 
 susp_info = pca(data_norm[['SUSP_SEX', 'SUSP_RACE', 'SUSP_AGE_GROUP']], n_components=1)
-misc_info = pca(data_norm[['PREM_TYP_DESC', 'VIC_RACE', 'PD_CD']], n_components=1)
+misc_info = pca(data_norm[['BORO_NM', 'ADDR_PCT_CD']], n_components=1)
 
 data_chosen_pca = pandas.DataFrame()
 data_chosen_pca['SUSP_INFO'] = susp_info[0]
-data_chosen_pca['VIC_INFO'] = data_norm['VIC_RACE']
+data_chosen_pca['LOC'] = misc_info[0]
 
-plot_clustermap(
-    data_norm.drop(columns=['Longitude', 'Latitude'])
-             .sample(n=13_000, random_state=666),
-    method='ward',
-    # standard_scale=1,
-    cbar_pos=None
-)
-pyplot.savefig(
-    '../dendrogram',
-    dpi=300,
-    bbox_inches='tight'
-)
-pyplot.clf()
-pyplot.cla()
-pyplot.close()
-
-print(correlate_sort(data, 0.2).to_string())
-
-plot_regression(
-    data.sample(n=13_000, random_state=666),
-    x='SUSP_RACE', y='SUSP_AGE_GROUP',
-    col='SUSP_SEX',
-    x_estimator=numpy.mean,
-    # lowess=True,
-    bottom=0.4, left=0.15
-)
-pyplot.savefig(
-    '../regression',
-    dpi=300,
-    bbox_inches='tight'
-)
-pyplot.close()
-
-clusterer = Kmeans(
-    data_chosen_pca,
-    3,
-    [-1, -1, -1]
-)
-
+clusterer = ExpectationMaximization(data_chosen_pca, 5, [-1, -1])
 data_labels = clusterer.fit_predict()
 
 data['cluster'] = data_labels
+
 clustered_data = data.groupby(['cluster'])
 for name, cluster in clustered_data:
     print(name)
-    print(cluster['KY_CD'].value_counts().T)
+    print(cluster['PD_CD'].value_counts(normalize=True).head(3))
+    print(cluster['VIC_AGE_GROUP'].value_counts(normalize=True).head(3))
+    # print(cluster)
+    # print(cluster.T.to_string())
     print("\n")
 
 pyplot.scatter(
-    x=data_pca.iloc[:, 0],
-    y=data_pca.iloc[:, 1],
+    x=data_chosen_pca['SUSP_INFO'],
+    y=data_chosen_pca['LOC'],
     c=data_labels,
     cmap='viridis'
 )
@@ -91,3 +57,81 @@ pyplot.savefig(
     dpi=300,
     bbox_inches='tight'
 )
+
+
+# susp_info = pca(data_norm[['SUSP_SEX', 'SUSP_RACE', 'SUSP_AGE_GROUP']], n_components=1)
+# vic_info = pca(data_norm[['VIC_SEX', 'VIC_RACE', 'VIC_AGE_GROUP']], n_components=1)
+# location_info = pca(data_norm[['BORO_NM', 'ADDR_PCT_CD']], n_components=1)
+# # date_info = pca(data_norm[['CMPLNT_FR_DT', 'CMPLNT_FR_TM']], n_components=1)
+#
+# data_chosen_pca = pandas.DataFrame()
+# data_chosen_pca['VIC'] = vic_info[0]
+# data_chosen_pca['LOC'] = location_info[0]
+# data_chosen_pca['TIME'] = data_norm['CMPLNT_FR_TM']
+# data_chosen_pca['CRIME'] = data_norm['KY_CD']
+# #
+# data_pca = pca(data_chosen_pca, n_components=2)
+#
+# plot_clustermap(
+#     data_chosen_pca#.drop(columns=['Longitude', 'Latitude'])
+#              .sample(n=13_000, random_state=666),
+#     method='ward',
+#     # standard_scale=1,
+#     cbar_pos=None
+# )
+# pyplot.savefig(
+#     '../dendrogram1',
+#     dpi=300,
+#     bbox_inches='tight'
+# )
+# pyplot.clf()
+# pyplot.cla()
+# pyplot.close()
+# #
+# # print(correlate_sort(data, 0.2).to_string())
+# #
+# # plot_regression(
+# #     data.sample(n=13_000, random_state=666),
+# #     x='SUSP_RACE', y='SUSP_AGE_GROUP',
+# #     col='SUSP_SEX',
+# #     x_estimator=numpy.mean,
+# #     # lowess=True,
+# #     bottom=0.4, left=0.15
+# # )
+# # pyplot.savefig(
+# #     '../regression',
+# #     dpi=300,
+# #     bbox_inches='tight'
+# # )
+# # pyplot.close()
+#
+#
+# clusterer = Kmeans(
+#     data_chosen_pca,
+#     3,
+#     [-1, -1, -1]
+# )
+#
+# data_labels = clusterer.fit_predict()
+#
+# data['cluster'] = data_labels
+# clustered_data = data.groupby(['cluster'])
+# for name, cluster in clustered_data:
+#     print("CLUSTER " + str(name))
+#     print(cluster['SUSP_RACE'].value_counts(normalize=True).head(1))
+#     print(cluster['SUSP_AGE_GROUP'].value_counts(normalize=True).head(1))
+#     print(cluster['SUSP_SEX'].value_counts(normalize=True).head(1))
+#     print("\n")
+#
+#
+# pyplot.scatter(
+#     x=data_pca.iloc[:, 0],
+#     y=data_pca.iloc[:, 1],
+#     c=data_labels,
+#     cmap='viridis'
+# )
+# pyplot.savefig(
+#     '../clusterization',
+#     dpi=300,
+#     bbox_inches='tight'
+# )

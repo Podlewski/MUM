@@ -18,10 +18,11 @@ class ExpectationMaximization(Clusterer):
             iterations = int(args[1])
 
             self.n_clusters = n_clusters if n_clusters > 0 else 5
-            self.max_iterations = iterations if iterations > 0 else 100
+            self.max_iterations = iterations if iterations > 0 else 200
 
             self.model = GaussianMixture(n_components=self.n_clusters,
-                                         covariance_type=covariance_type[type_number],
-                                         max_iter=self.max_iterations)
+                                         #covariance_type=covariance_type[type_number],
+                                         # max_iter=self.max_iterations
+            )
         except:
             self.model = GaussianMixture()
