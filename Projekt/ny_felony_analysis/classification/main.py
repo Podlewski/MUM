@@ -57,7 +57,7 @@ if args.roc_curve is True:
     plt.xlim([-0.01, 1.01])
     plt.ylim([-0.01, 1.01])
     ax.legend()
-    fig.savefig(feature_name + '_ROC_Curve', bbox_inches='tight', dpi=300)
+    fig.savefig('ROC_Curve', bbox_inches='tight', dpi=300)
 
 if args.learning_curve is True:
-    learning_curve_plot(classifiers, feature_name + '_learning_curve')
+    learning_curve_plot(classifiers, 'learning_curve')
