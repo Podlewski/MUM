@@ -1,6 +1,62 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Dropped feautures: BORO_NM, ADDR_PCT_CD
 
 ~~~~~~~~~~~~~~~~~~~~
+Label feauture:     KY_CD
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.13        0.329      0.134    3.01s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.137       0.294      0.152    0.72s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.091       0.272      0.078    7.71s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.145       0.357      0.126    142.89s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.179       0.409      0.146    74.41s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.12        0.409      0.084    101.77s
+
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     PD_CD
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.043       0.196      0.046    8.92s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.023       0.139      0.036    4.88s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.017       0.168      0.016    8.26s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.046       0.251      0.039    1446.61s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.056       0.258      0.049    28.07s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.01        0.218      0.01     1009.22s
+
+
+~~~~~~~~~~~~~~~~~~~~
 Label feauture:     SUSP_AGE_GROUP
 
 ~~~~~~~~~~ Decision trees algorithm
