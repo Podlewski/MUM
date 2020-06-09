@@ -19,7 +19,8 @@ def plot_clustermap(df: DataFrame, metric='euclidean', method='average',
 
 def plot_regression(df: DataFrame, x: str, y: str,
                     hue: str = None, col: str = None, row: str = None,
-                    x_estimator=None, lowess: bool = False, jitter: float = .03,
+                    x_estimator=None, fit_reg=True, lowess: bool = False,
+                    jitter: float = .03,
                     bottom=None, left=None):
     regression = seaborn.lmplot(
         data=df,
@@ -27,6 +28,7 @@ def plot_regression(df: DataFrame, x: str, y: str,
         hue=hue,
         col=col, row=row,
         x_estimator=x_estimator,
+        fit_reg=fit_reg,
         lowess=lowess,
         x_jitter=jitter, y_jitter=jitter,
         scatter_kws={'alpha': 0.6}
@@ -42,5 +44,9 @@ def plot_regression(df: DataFrame, x: str, y: str,
         for legend_entry, label in zip(regression._legend.texts, LABEL_UNIQUES[hue]):
             legend_entry.set_text(label)
     regression.fig.subplots_adjust(bottom=bottom, left=left)
-    add_ax_margins(regression.ax)
+    if fit_reg is True:
+        try:
+            add_ax_margins(regression.ax)
+        except AttributeError:
+            add_ax_margins(regression.axes)
     return regression

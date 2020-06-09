@@ -8,14 +8,18 @@ LABEL_UNIQUES = {}
 
 
 def add_ax_margins(ax, x=0.05, y=0.05):
-    xlim = ax.get_xlim()
-    ylim = ax.get_ylim()
+    if isinstance(ax, numpy.ndarray):
+        for a in ax:
+            add_ax_margins(a, x, y)
+    else:
+        xlim = ax.get_xlim()
+        ylim = ax.get_ylim()
 
-    xmargin = x * (xlim[1] - xlim[0])
-    ymargin = y * (ylim[1] - ylim[0])
+        xmargin = x * (xlim[1] - xlim[0])
+        ymargin = y * (ylim[1] - ylim[0])
 
-    ax.set_xlim(xlim[0] - xmargin, xlim[1] + xmargin)
-    ax.set_ylim(ylim[0] - ymargin, ylim[1] + ymargin)
+        ax.set_xlim(xlim[0] - xmargin, xlim[1] + xmargin)
+        ax.set_ylim(ylim[0] - ymargin, ylim[1] + ymargin)
 
 
 def drop_infrequent(df, column=None, min_appearances=10):
