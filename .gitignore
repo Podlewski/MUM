@@ -6,6 +6,7 @@
 
 NYPD_Complaint_Data_Historic.csv
 NYPD_Felony_Data.csv
+NYPD_Felony_Data2.csv
 NYPD_Felony_Data_Fit.csv
 
 # Created by https://www.gitignore.io/api/python,intellij+iml
