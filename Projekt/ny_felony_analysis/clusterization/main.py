@@ -23,7 +23,7 @@ data = data.dropna()
 data = drop_infrequent(data)
 data = data.apply(factorize)
 data_norm = normalize(data)
-data_pca = pca(data_norm, n_components=3)
+data_pca = pca(data_norm, n_components=2)
 
 susp_info = pca(data_norm[['SUSP_SEX', 'SUSP_RACE', 'SUSP_AGE_GROUP']], n_components=1)
 misc_info = pca(data_norm[['PREM_TYP_DESC', 'VIC_RACE', 'PD_CD']], n_components=1)

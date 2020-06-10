@@ -1,6 +1,6 @@
 import numpy
 import pandas
-from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA, FastICA
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 
@@ -62,6 +62,12 @@ def normalize(df):
 def pca(df, n_components=2):
     pca_ = PCA(n_components=n_components)
     data = pca_.fit_transform(df)
+    return pandas.DataFrame(data)
+
+
+def ica(df, n_components=2):
+    ica_ = FastICA(n_components=n_components)
+    data = ica_.fit_transform(df)
     return pandas.DataFrame(data)
 
 

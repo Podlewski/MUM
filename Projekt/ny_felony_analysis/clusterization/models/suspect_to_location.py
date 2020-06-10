@@ -38,6 +38,12 @@ for name, cluster in clustered_data:
     print(cluster['VIC_AGE_GROUP'].value_counts(normalize=True).head(1).to_string())
     print(cluster['VIC_RACE'].value_counts(normalize=True).head(1).to_string())
     print(cluster['VIC_SEX'].value_counts(normalize=True).head(1).to_string())
+    print("* suspect profile:")
+    print(cluster['SUSP_AGE_GROUP'].value_counts(normalize=True).head(1).to_string())
+    print(cluster['SUSP_RACE'].value_counts(normalize=True).head(1).to_string())
+    print(cluster['SUSP_SEX'].value_counts(normalize=True).head(1).to_string())
+    print("* location:")
+    print(cluster['BORO_NM'].value_counts(normalize=True).head(2).to_string())
     print("\n")
 
 pyplot.scatter(
