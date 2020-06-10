@@ -33,7 +33,6 @@ for name, cluster in clustered_data:
     print("CLUSTER_" + str(name))
     print("* most common crimes:")
     print(cluster['PD_CD'].value_counts(normalize=True).head(3).to_string())
-    print(cluster.describe())
 
 
 pyplot.scatter(
