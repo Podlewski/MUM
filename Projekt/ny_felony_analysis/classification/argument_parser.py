@@ -17,26 +17,61 @@ class ArgumentParser:
                         '\n  Karol Podlewski\t234106'
                         '\n  Piotr Wardęcki\t234128')
 
-        self.parser.add_argument('-c', metavar='CLASSIFIER', dest='classifier',
-                                 type=int, default=0, choices=range(1, 6),
-                                 help='Use only one classifier:'
-                                      '\n  [1] - Decision trees algorithm'
-                                      '\n  [2] - Naive Bayes'
-                                      '\n  [3] - Support-vector machine'
-                                      '\n  [4] - k-nearest neighbors'
-                                      '\n  [5] - Artificial neural network')
+        self.parser.add_argument('-l', metavar='LABEL', dest='label',
+                                 type=str, default=None,
+                                 help='Specify feature label by name '
+                                      '(overwrites -ln)')
+
+        self.parser.add_argument('-ln', metavar='LABEL_NUMBER', dest='label_number',
+                                 type=int, default=None,
+                                 help='Specify feature label by number '
+                                      '(overwrited by -l)')
+
+        self.parser.add_argument('-d', metavar='D', dest='drops',
+                                 type=str, default=None, nargs='+',
+                                 help='Specify features to drop by name '
+                                      '(merges features from -dn)')
+
+        self.parser.add_argument('-dn', metavar='D', dest='drops_numbers',
+                                 default=None, type=int, nargs='+',
+                                 help='Specify features to drop by number '
+                                      '(merges features from -d)')
 
         self.parser.add_argument('-t', metavar='PERCENT', dest='training_percent',
                                  type=int, default=75, choices=range(1, 100),
                                  help='Set percent of training set')
 
-        self.parser.add_argument('-legend_entry', metavar='N', dest='class_args',
-                                 type=str, nargs='+', default=None,
-                                 help='Arguments of chosen classifier')
+        self.parser.add_argument('-i', dest='reduction', 
+                                 action='store_const', const="ica", default=None,
+                                 help='Reduce features with ICA algorithm')
 
-        self.parser.add_argument('--time', dest='time', action='store_const',
-                                 const=True, default=False,
+        self.parser.add_argument('-p', dest='reduction', 
+                                 action='store_const', const="pca",
+                                 help='Reduce features with PCA algorithm') 
+
+        self.parser.add_argument('-s', '--stack', dest='stacking_classifier', 
+                                 action='store_const', const=True, default=False,
+                                 help='Run program with stacking classifier')
+
+        self.parser.add_argument('-bg', '--bagging', dest='bagging_classifier',
+                                 action='store_const', const=True, default=False,
+                                 help='Run program with decision tree bagging classifier')
+
+        self.parser.add_argument('-bt', '--boosting', dest='boosting_classifier',
+                                 action='store_const', const=True, default=False,
+                                 help='Run program with gradient boosting classifier')
+
+        self.parser.add_argument('--time', dest='time', 
+                                 action='store_const', const=True, default=False,
                                  help='Measure time of classification')
+
+        self.parser.add_argument('-rp', '--roc', dest='roc_curve', 
+                                 action='store_const', const=True, default=False,
+                                 help='Create ROC curve plot')
+
+        self.parser.add_argument('-lp', '--learn', dest='learning_curve', 
+                                 action='store_const', const=True, default=False,
+                                 help='Create learning curve plot')
 
         self.args = self.parser.parse_args()
 

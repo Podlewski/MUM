@@ -7,69 +7,57 @@ from argument_parser import ArgumentParser
 from classifiers.bayes import Bayes
 from classifiers.decision_tree import DecisionTree
 from classifiers.k_neighbors import KNeighbors
-from classifiers.neural_network import NeuralNetwork
-from classifiers.svm import SVM
-from utils import factorize, learning_curve_plot, print_basic_stats
+from classifiers.stacking import Stacking
+from classifiers.bagging import Bagging
+from classifiers.boosting import Boosting
+from utils import factorize, learning_curve_plot, print_basic_stats, prepare_data, print_time
 
 args = ArgumentParser().get_arguments()
 
-data = pd.read_csv('../NYPD_Felony_Data.csv')
-
-data.drop([data.columns[2],  data.columns[3],  data.columns[13],
-           data.columns[14]], axis='columns', inplace=True)
-data.dropna(inplace=True)
-
-labels_list = ['KY_CD',
-               'SUSP_AGE_GROUP',
-               'SUSP_RACE',
-               'SUSP_SEX',
-               'VIC_AGE_GROUP',
-               'VIC_RACE',
-               'VIC_SEX']
-
+data = pd.read_csv('../NYPD_Felony_Data_Fit.csv')
 data = data.apply(factorize)
-
 fraction = args.training_fraction
-class_args = args.class_args
 
-print_basic_stats(args.training_percent)
+diminished_data, labels, label_name, drops_name = prepare_data(data, args.label, args.label_number, args.drops, args.drops_numbers, args.reduction)
+unique_labels = unique(labels.values.ravel())
 
-for feature_name in labels_list: 
-    print('\n~~~~~~~~~~~~~~~~~~~~ ' + feature_name)
-    diminished_data = data.drop(columns=[feature_name])
-    labels = data[feature_name]
-    unique_labels = unique(labels.values.ravel())
+print_basic_stats(label_name, drops_name, args.training_percent)
 
-    classifiers = [DecisionTree(diminished_data, labels, unique, fraction),
-                    Bayes(diminished_data, labels, unique, fraction),
-                    KNeighbors(diminished_data, labels, unique, fraction)]
+classifiers = [DecisionTree(diminished_data, labels, unique, fraction),
+               Bayes(diminished_data, labels, unique, fraction),
+               KNeighbors(diminished_data, labels, unique, fraction)]
 
-    fig, ax = plt.subplots()
+if args.stacking_classifier is True:
+    classifiers.append(Stacking(diminished_data, labels, unique, fraction))
 
-    for classifier in classifiers:
-        start = timer()
-        classifier.train()
-        classifier.test()
-        end = timer()
+if args.bagging_classifier is True:
+    classifiers.append(Bagging(diminished_data, labels, unique, fraction))
 
-        print('\n~~~~~~~~~~ ' + classifier.name) 
+if args.boosting_classifier is True:
+    classifiers.append(Boosting(diminished_data, labels, unique, fraction))
 
-        # x, y, _ = classifier.get_roc_curve_plot()
-        # ax.plot(x, y, label=classifier.short_name)
+fig, ax = plt.subplots()
 
-        classifier.print_stats()
+for classifier in classifiers:
+    start = timer()
+    classifier.train()
+    classifier.test()
+    end = timer()
 
-        if args.time is True:
-            print(f'\nTime:  {round((end - start), 2)} s')
+    classifier.print_stats()
+    if args.time is True:
+        print_time(start, end)
 
-        # learning_curve_plot(classifier, feature_name + '_learning_curve_' +
-        #                     classifier.short_name)
+    if args.roc_curve is True: 
+        x, y, _ = classifier.get_roc_curve_plot()
+        ax.plot(x, y, label=classifier.short_name)
 
-    # if args.classifier is 0: 
-        # ax.plot([0, 1], [0, 1], color='black', ls='--')
-        # plt.xlim([-0.01, 1.01])
-        # plt.ylim([-0.01, 1.01])
-        # ax.legend()
-        # fig.savefig(feature_name + '_ROC_Curve', bbox_inches='tight', dpi=300)
+if args.roc_curve is True: 
+    ax.plot([0, 1], [0, 1], color='black', ls='--')
+    plt.xlim([-0.01, 1.01])
+    plt.ylim([-0.01, 1.01])
+    ax.legend()
+    fig.savefig('ROC_Curve', bbox_inches='tight', dpi=300)
 
-    #     learning_curve_plot(classifiers, feature_name + '_learning_curve')
+if args.learning_curve is True:
+    learning_curve_plot(classifiers, 'learning_curve')

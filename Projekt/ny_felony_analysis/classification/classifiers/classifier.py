@@ -49,7 +49,6 @@ class Classifier:
             self.prediction)    
 
     def get_metrics(self, digits):
-        warnings.filterwarnings('ignore')
         return metrics.classification_report(
             self.test_target_values,
             self.prediction,
@@ -88,6 +87,7 @@ class Classifier:
         # print('  ' + str(fp) + '\t' + str(tn))
 
     def print_metrics(self, digits):
+        warnings.filterwarnings('ignore')
         # tn, fp, fn, tp = self.get_confusion_matrix().ravel()
         # metrics_names = ['Precision', 'Accuracy', 'Recall', 'Specifity']
         metrics_names = ['Precision', 'Accuracy', 'Recall']
@@ -107,10 +107,9 @@ class Classifier:
         print(metrics_first_line)
         print(metrics_second_line)  
 
-    def print_stats(self, labels=False, digits=3):
-
-        if labels is True:
-            print('\nLabels: ' + str(self.labels))
-
+    def print_stats(self, time=None, digits=3):
+        print('\n~~~~~~~~~~ ' + self.name) 
         # self.print_confusion_matrix()
         self.print_metrics(digits)
+        if time is not None:
+            print(f'\nTime:  {round(time, 2)} s')
