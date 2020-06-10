@@ -1,0 +1,169 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Dropped feautures: SUSP_AGE_GROUP, SUSP_RACE, SUSP_SEX
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     KY_CD
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.109       0.288      0.111    2.86s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.126       0.275      0.11     0.63s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.08        0.252      0.069    7.85s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.122       0.317      0.104    122.18s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.18        0.399      0.134    98.98s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.087       0.331      0.063    44.17s
+
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     PD_CD
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.039       0.168      0.042    7.04s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.025       0.158      0.035    3.85s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.014       0.167      0.01     7.63s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.039       0.222      0.032    1109.39s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.053       0.244      0.046    113.97s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.031       0.272      0.042  710.0s
+
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     BORO_NM
+Dropped feautures:  SUSP_AGE_GROUP, SUSP_RACE, SUSP_SEX, ADDR_PCT_CD
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.296       0.337      0.297    2.54s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.317       0.398      0.303    0.23s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.241       0.304      0.231    8.16s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.305       0.347      0.294    62.55s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.364       0.399      0.34     60.13s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.306       0.355      0.228    7.43s
+ 
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     VIC_AGE_GROUP
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.102       0.356      0.102    3.38s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.108       0.457      0.071    0.67s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.105       0.385      0.095    7.92s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.14        0.395      0.128    127.19s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.175       0.447      0.146    112.64s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.07        0.469      0.051    56.86s
+
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     VIC_RACE
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.282       0.409      0.285    2.78s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.261       0.392      0.212    0.37s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.199       0.346      0.184    8.63s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.3         0.43       0.287    66.18s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.381       0.517      0.339    70.38s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.353       0.423      0.2      11.52s
+
+
+~~~~~~~~~~~~~~~~~~~~
+Label feauture:     VIC_SEX
+
+~~~~~~~~~~ Decision trees algorithm
+Precision   Accuracy   Recall   Time
+0.615       0.623      0.615    3.32s
+
+~~~~~~~~~~ Naive Bayes classifier
+Precision   Accuracy   Recall   Time
+0.628       0.638      0.624    0.18s
+
+~~~~~~~~~~ k-nearest neighbors algorithm
+Precision   Accuracy   Recall   Time
+0.577       0.589      0.575    7.94s
+
+~~~~~~~~~~ Stacking classifier
+Precision   Accuracy   Recall   Time
+0.631       0.64       0.628    37.67s
+
+~~~~~~~~~~ Bagging classifier
+Precision   Accuracy   Recall   Time
+0.675       0.683      0.671    61.67s
+
+~~~~~~~~~~ Boosting classifier
+Precision   Accuracy   Recall   Time
+0.287       0.574      0.5      1.51s

@@ -1,0 +1,7 @@
+Nazwa;Średnia Precyzja;Minimalna Precyzja;Maksymalna Precyzja;Średnia Dokładność;Minimalna Dokładność;Maksymalna Dokładność;Średnia Czułość;Minimalna Czułość;Maksymalna Czułość;Średni Czas
+Bagging;0.330;0.019;0.736;0.499;0.224;0.807;0.305;0.019;0.707;113.970
+Stacking;0.300;0.014;0.678;0.470;0.222;0.775;0.282;0.014;0.648;2192.770
+Drzewa;0.268;0.016;0.646;0.427;0.168;0.725;0.270;0.019;0.651;9.880
+Bayes;0.256;0.006;0.633;0.478;0.139;0.783;0.258;0.010;0.632;8.680
+k-nn;0.228;0.014;0.578;0.402;0.167;0.657;0.219;0.010;0.576;16.820
+Boosting;0.200;0.005;0.710;0.479;0.218;0.633;0.208;0.010;0.551;1166.920
